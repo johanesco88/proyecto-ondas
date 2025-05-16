@@ -44,6 +44,7 @@ const UserList = () => {
         {users.map((user) => (
           <li key={user.id}>
             {user.nombres} - {user.correo}
+            {user.rol} - {user.rol}
             <button onClick={() => setEditingUser(user)}>Editar</button>
             <button onClick={() => handleDelete(user.id)}>Eliminar</button>
           </li>

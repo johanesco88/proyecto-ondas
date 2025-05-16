@@ -6,7 +6,7 @@ export const Home = () => {
     return (
         <div>
 
-            <UserList />
+            <UserList  />
             <Proyectos />
 
         </div>

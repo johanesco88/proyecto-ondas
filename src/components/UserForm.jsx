@@ -1,5 +1,6 @@
 // src/components/UserForm.jsx
 import { useState } from "react";
+import '../App.css';
 
 const UserForm = ({ onSubmit, initialData = { nombre: "", correo: "" }, isEditing }) => {
   const [formData, setFormData] = useState(initialData);
@@ -18,6 +19,7 @@ const UserForm = ({ onSubmit, initialData = { nombre: "", correo: "" }, isEditin
     <form onSubmit={handleSubmit}>
       <input name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} required />
       <input name="correo" placeholder="Correo" value={formData.correo} onChange={handleChange} required />
+      <input name="rol" placeholder="rol" value={formData.rol} onChange={handleChange} required />
       <button type="submit">{isEditing ? "Actualizar" : "Crear"} Usuario</button>
     </form>
   );
