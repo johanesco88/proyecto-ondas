@@ -64,66 +64,6 @@ const Proyectos = () => {
      <div className="proyectos-container">
       <h2 className="proyectos-titulo">Proyectos</h2>
 
-      <div className="proyecto-formulario">
-        <input
-          className="proyecto-input"
-          type="text"
-          placeholder="Título del Proyecto"
-          value={nuevoProyecto.titulo}
-          onChange={(e) =>
-            setNuevoProyecto({ ...nuevoProyecto, titulo: e.target.value })
-          }
-        />
-        <input
-          className="proyecto-input"
-          type="text"
-          placeholder="Área"
-          value={nuevoProyecto.area}
-          onChange={(e) =>
-            setNuevoProyecto({ ...nuevoProyecto, area: e.target.value })
-          }
-        />
-        <input
-          className="proyecto-input"
-          type="text"
-          placeholder="Cronograma"
-          value={nuevoProyecto.cronograma}
-          onChange={(e) =>
-            setNuevoProyecto({ ...nuevoProyecto, cronograma: e.target.value })
-          }
-        />
-        <input
-          className="proyecto-input"
-          type="number"
-          placeholder="Presupuesto"
-          value={nuevoProyecto.presupuesto}
-          onChange={(e) =>
-            setNuevoProyecto({ ...nuevoProyecto, presupuesto: e.target.value })
-          }
-        />
-        <input
-          className="proyecto-input"
-          type="text"
-          placeholder="Institución"
-          value={nuevoProyecto.institucion}
-          onChange={(e) =>
-            setNuevoProyecto({ ...nuevoProyecto, institucion: e.target.value })
-          }
-        />
-        <input
-          className="proyecto-input"
-          type="text"
-          placeholder="Docente Encargado"
-          value={nuevoProyecto.docenteId}
-          onChange={(e) =>
-            setNuevoProyecto({ ...nuevoProyecto, docenteId: e.target.value })
-          }
-        />
-        <button className="proyecto-boton" onClick={handleCrearProyecto}>
-          Crear Proyecto
-        </button>
-      </div>
-
       <ul className="proyecto-lista">
         {proyectos.map((proyecto) => (
           <li key={proyecto.id} className="proyecto-item">
@@ -154,6 +94,9 @@ const Proyectos = () => {
           </li>
         ))}
       </ul>
+        <button className="proyecto-boton" onClick={() => navigate(`/CrearProyecto`)}>
+          Crear Proyecto
+        </button>
     </div>
   );
 };

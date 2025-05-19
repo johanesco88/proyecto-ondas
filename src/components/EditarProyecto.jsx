@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { obtenerProyectos, actualizarProyecto } from "../services/proyectoService";
+import CircularProgress, { circularProgressClasses } from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import "./EditarProyecto.css";
 
 
 const VerProyecto = () => {
@@ -31,7 +34,15 @@ const VerProyecto = () => {
     }
   };
 
-  if (!proyecto) return <p>Cargando proyecto...</p>;
+  function CircularIndeterminate() {
+  return (
+    <Box className="Cargando">
+      <CircularProgress />
+    </Box>
+  );
+}
+
+  if (!proyecto) return CircularIndeterminate();
 
   return (
     <div className="proyectos-container">

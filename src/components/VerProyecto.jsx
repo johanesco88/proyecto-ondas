@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { obtenerProyectos, actualizarProyecto } from "../services/proyectoService";
+import "./VerProyecto.css";
 
 
 const VerProyecto = () => {
@@ -34,66 +35,23 @@ const VerProyecto = () => {
   if (!proyecto) return <p>Cargando proyecto...</p>;
 
   return (
-    <div className="proyectos-container">
-      <h2 className="proyectos-titulo">{proyecto.titulo}</h2>
+   <div className="proyecto-informe">
+  <h2 className="proyecto-titulo">{proyecto.titulo}</h2>
 
-      <div className="proyecto-formulario">
-        <input
-          className="proyecto-input"
-          type="text"
-          name="titulo"
-          placeholder="Título del Proyecto"
-          value={proyecto.titulo}
-          onChange={handleChange}
-        />
-        <input
-          className="proyecto-input"
-          type="text"
-          name="area"
-          placeholder="Área"
-          value={proyecto.area}
-          onChange={handleChange}
-        />
-        <input
-          className="proyecto-input"
-          type="text"
-          name="cronograma"
-          placeholder="Cronograma"
-          value={proyecto.cronograma}
-          onChange={handleChange}
-        />
-        <input
-          className="proyecto-input"
-          type="number"
-          name="presupuesto"
-          placeholder="Presupuesto"
-          value={proyecto.presupuesto}
-          onChange={handleChange}
-        />
-        <input
-          className="proyecto-input"
-          type="text"
-          name="institucion"
-          placeholder="Institución"
-          value={proyecto.institucion}
-          onChange={handleChange}
-        />
-        <input
-          className="proyecto-input"
-          type="text"
-          name="docenteId"
-          placeholder="Docente Encargado"
-          value={proyecto.docenteId}
-          onChange={handleChange}
-        />
-        <button className="proyecto-boton" onClick={handleActualizar}>
-          Guardar Cambios
-        </button>
-        <button className="proyecto-boton" onClick={() => window.history.back()}>
-          Regresar
-        </button>
-      </div>
-    </div>
+  <div className="proyecto-detalles">
+    <p><strong>Área:</strong> {proyecto.area}</p>
+    <p><strong>Cronograma:</strong> {proyecto.cronograma}</p>
+    <p><strong>Presupuesto:</strong> ${proyecto.presupuesto}</p>
+    <p><strong>Institución:</strong> {proyecto.institucion}</p>
+    <p><strong>Docente Encargado:</strong> {proyecto.docenteId}</p>
+  </div>
+
+  <div className="proyecto-acciones">
+    <button className="proyecto-boton" onClick={() => window.history.back()}>
+      Regresar
+    </button>
+  </div>
+</div>
   );
 };
 
