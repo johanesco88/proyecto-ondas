@@ -9,8 +9,12 @@ const UserList = () => {
   const [editingUser, setEditingUser] = useState(null);
 
   const fetchUsers = async () => {
-    const data = await getUsers();
-    setUsers(data);
+    try {
+      const data = await getUsers();
+      setUsers(data);
+    } catch (error) {
+      console.error("Error al obtener usuarios:", error);
+    }
   };
 
   useEffect(() => {
@@ -18,58 +22,76 @@ const UserList = () => {
   }, []);
 
   const handleCreate = async (user) => {
-    await createUser(user);
-    fetchUsers();
+    try {
+      await createUser(user);
+      fetchUsers();
+    } catch (error) {
+      console.error("Error al crear usuario:", error);
+    }
   };
 
   const handleUpdate = async (user) => {
-    await updateUser(editingUser._id, user); // Asegúrate que usas el campo correcto, puede ser .id o ._id
-    setEditingUser(null);
-    fetchUsers();
+    if (!editingUser?.id) {
+      console.error("ID del usuario para editar no encontrado");
+      return;
+    }
+    try {
+      await updateUser(editingUser.id, user);
+      setEditingUser(null);
+      fetchUsers();
+    } catch (error) {
+      console.error("Error al actualizar usuario:", error);
+    }
   };
 
   const handleDelete = async (id) => {
-    await deleteUser(id);
-    fetchUsers();
+    try {
+      await deleteUser(id);
+      fetchUsers();
+    } catch (error) {
+      console.error("Error al eliminar usuario:", error);
+    }
+  };
+
+  const handleConfirmDelete = (id) => {
+    if (window.confirm("¿Estás seguro que quieres eliminar este usuario?")) {
+      handleDelete(id);
+    }
   };
 
   return (
     <div>
-       <div className="user-section">
-    <h2 className="title-center">Usuarios</h2>
-  </div>
-      <UserForm
-        onSubmit={editingUser ? handleUpdate : handleCreate}
-        initialData={editingUser || undefined}
-        isEditing={!!editingUser}
-      />
+      <div className="user-section">
+        <h2 className="title-center">Usuarios</h2>
+      </div>
 
-<ul className="user-list">
-  {users.map((user, index) => (
-    <li key={user._id} className="user-item">
-      <div className="user-info">
-        <strong>{user.nombres} {user.apellidos}</strong><br />
-        ID: {user.identificacion} | Correo: {user.correo}<br />
-        Rol: {user.rol} {user.rol === 'estudiante' && `| Grado: ${user.grado}`}<br />
-        Institución: {user.institucion}
-      </div>
-      <div className="user-buttons">
-        <button
-          className="edit-btn"
-          onClick={() => setEditingUser(user)}
-        >
-          Editar
-        </button>
-        <button
-          className="delete-btn"
-          onClick={() => handleConfirmDelete(user._id)}
-        >
-          Eliminar
-        </button>
-      </div>
-    </li>
-  ))}
-</ul>
+      <UserForm
+  key={editingUser ? editingUser.id : "new"}
+  onSubmit={editingUser ? handleUpdate : handleCreate}
+  initialData={editingUser || undefined}
+  isEditing={!!editingUser}
+/>
+
+      <ul className="user-list">
+        {users.map((user) => (
+          <li key={user.id} className="user-item">
+            <div className="user-info">
+              <strong>{user.nombres} {user.apellidos}</strong><br />
+              ID: {user.identificacion} | Correo: {user.correo}<br />
+              Rol: {user.rol} {user.rol === 'estudiante' && `| Grado: ${user.grado}`}<br />
+              Institución: {user.institucion}
+            </div>
+            <div className="user-buttons">
+              <button className="edit-btn" onClick={() => setEditingUser(user)}>
+                Editar
+              </button>
+              <button className="delete-btn" onClick={() => handleConfirmDelete(user.id)}>
+                Eliminar
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
