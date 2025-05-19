@@ -1,6 +1,8 @@
 // src/components/Proyectos.jsx
 import React, { useState, useEffect } from "react";
 import { crearProyecto, obtenerProyectos, actualizarProyecto, eliminarProyecto } from "../services/proyectoService";
+import "./Proyectos.css"; 
+import { useNavigate } from "react-router-dom";
 
 const Proyectos = () => {
   const [proyectos, setProyectos] = useState([]);
@@ -13,6 +15,8 @@ const Proyectos = () => {
     docenteId: "",
     observaciones: "",
   });
+
+  const navigate = useNavigate();
 
   // Obtener proyectos
   useEffect(() => {
@@ -57,25 +61,96 @@ const Proyectos = () => {
   };
 
   return (
-    <div>
-      <h2>Proyectos</h2>
-      <div>
+     <div className="proyectos-container">
+      <h2 className="proyectos-titulo">Proyectos</h2>
+
+      <div className="proyecto-formulario">
         <input
+          className="proyecto-input"
           type="text"
-          placeholder="Título"
+          placeholder="Título del Proyecto"
           value={nuevoProyecto.titulo}
-          onChange={(e) => setNuevoProyecto({ ...nuevoProyecto, titulo: e.target.value })}
+          onChange={(e) =>
+            setNuevoProyecto({ ...nuevoProyecto, titulo: e.target.value })
+          }
         />
-        {/* Agrega otros campos aquí */}
-        <button onClick={handleCrearProyecto}>Crear Proyecto</button>
+        <input
+          className="proyecto-input"
+          type="text"
+          placeholder="Área"
+          value={nuevoProyecto.area}
+          onChange={(e) =>
+            setNuevoProyecto({ ...nuevoProyecto, area: e.target.value })
+          }
+        />
+        <input
+          className="proyecto-input"
+          type="text"
+          placeholder="Cronograma"
+          value={nuevoProyecto.cronograma}
+          onChange={(e) =>
+            setNuevoProyecto({ ...nuevoProyecto, cronograma: e.target.value })
+          }
+        />
+        <input
+          className="proyecto-input"
+          type="number"
+          placeholder="Presupuesto"
+          value={nuevoProyecto.presupuesto}
+          onChange={(e) =>
+            setNuevoProyecto({ ...nuevoProyecto, presupuesto: e.target.value })
+          }
+        />
+        <input
+          className="proyecto-input"
+          type="text"
+          placeholder="Institución"
+          value={nuevoProyecto.institucion}
+          onChange={(e) =>
+            setNuevoProyecto({ ...nuevoProyecto, institucion: e.target.value })
+          }
+        />
+        <input
+          className="proyecto-input"
+          type="text"
+          placeholder="Docente Encargado"
+          value={nuevoProyecto.docenteId}
+          onChange={(e) =>
+            setNuevoProyecto({ ...nuevoProyecto, docenteId: e.target.value })
+          }
+        />
+        <button className="proyecto-boton" onClick={handleCrearProyecto}>
+          Crear Proyecto
+        </button>
       </div>
 
-      <ul>
+      <ul className="proyecto-lista">
         {proyectos.map((proyecto) => (
-          <li key={proyecto.id}>
-            <h3>{proyecto.titulo}</h3>
-            <button onClick={() => handleActualizarProyecto(proyecto.id)}>Actualizar</button>
-            <button onClick={() => handleEliminarProyecto(proyecto.id)}>Eliminar</button>
+          <li key={proyecto.id} className="proyecto-item">
+            <h3 className="proyecto-item-titulo">{proyecto.titulo}</h3>
+            <p className="proyecto-item-titulo">Área: {proyecto.area}</p>
+            <p className="proyecto-item-titulo">Cronograma: {proyecto.cronograma}</p>
+            <p className="proyecto-item-titulo">Presupuesto: {proyecto.presupuesto}</p>
+            <p className="proyecto-item-titulo">Institución Encargada: {proyecto.institucion}</p>
+            <p className="proyecto-item-titulo">Docente Encargado: {proyecto.docenteId}</p>
+            <button
+              className="proyecto-actualizar"
+              onClick={() => navigate(`/EditarProyecto/${proyecto.titulo}/${proyecto.id}`)}
+            >
+              Actualizar
+            </button>
+            <button
+              className="proyecto-eliminar"
+              onClick={() => handleEliminarProyecto(proyecto.id)}
+            >
+              Eliminar
+            </button>
+            <button
+              className="proyecto-Mostrar"
+              onClick={() => navigate(`/VerProyecto/${proyecto.titulo}/${proyecto.id}`)}
+            >
+              Ver proyecto
+            </button>
           </li>
         ))}
       </ul>

@@ -1,10 +1,10 @@
-/* Eliminar márgenes y bordes predeterminados del body */
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
     background-color: #99a5b5; /* Gray-900 */
+    /* background-image: url(https://img.freepik.com/vector-premium/ciencia-doodle-ilustracion-vector-fondo-pantalla-patrones-fisuras_7087-2343.jpg); */
     overflow-x: hidden; /* Para evitar el desbordamiento horizontal */
   }
   
