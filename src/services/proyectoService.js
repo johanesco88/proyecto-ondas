@@ -47,7 +47,6 @@ export const eliminarProyecto = async (id) => {
 
 
 
-
 export const asignarIntegrante = async (idProyecto, nuevoIntegrante) => {
   try {
     const proyectoRef = doc(db, "proyectos", idProyecto);
@@ -314,3 +313,9 @@ export const asignarIntegrantesAProyecto = async (idProyecto, nuevosIntegrantes)
     throw new Error(error.message);
   }
 };
+
+export const obtenerUsuarios = async () => {
+  const snapshot = await getDocs(collection(db, "usuarios"));
+  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+

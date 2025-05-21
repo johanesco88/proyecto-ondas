@@ -97,6 +97,16 @@ const VerProyecto = () => {
           value={proyecto.docenteId}
           onChange={handleChange}
         />
+        <input
+          className="proyecto-input"
+          type="text"
+          name="estadoActual"
+          placeholder="Estado Actual"
+          value={proyecto.estadoActual}
+          onChange={handleChange}
+        />
+
+        
         <button className="proyecto-boton" onClick={handleActualizar}>
           Guardar Cambios
         </button>

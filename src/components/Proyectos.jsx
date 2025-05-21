@@ -14,6 +14,7 @@ const Proyectos = () => {
     institucion: "",
     docenteId: "",
     observaciones: "",
+    estado:"Formulacion",
   });
 
   const navigate = useNavigate();
@@ -73,6 +74,7 @@ const Proyectos = () => {
             <p className="proyecto-item-titulo">Presupuesto: {proyecto.presupuesto}</p>
             <p className="proyecto-item-titulo">Institución Encargada: {proyecto.institucion}</p>
             <p className="proyecto-item-titulo">Docente Encargado: {proyecto.docenteId}</p>
+            <p className="proyecto-item-titulo">Estado: {proyecto.estadoActual}</p>
             <button
               className="proyecto-actualizar"
               onClick={() => navigate(`/EditarProyecto/${proyecto.titulo}/${proyecto.id}`)}

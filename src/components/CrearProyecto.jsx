@@ -14,6 +14,7 @@ const Proyectos = () => {
     institucion: "",
     docenteId: "",
     observaciones: "",
+    estadoActual: "Formulación",
   });
 
   const navigate = useNavigate();
@@ -118,6 +119,18 @@ const Proyectos = () => {
             setNuevoProyecto({ ...nuevoProyecto, docenteId: e.target.value })
           }
         />
+        <input
+          className="proyecto-input"
+          type="text"
+          placeholder="Estado Actual"
+          value={nuevoProyecto.estadoActual}
+          disabled // Puedes quitar esto si quieres que sea editable
+          onChange={(e) =>
+            setNuevoProyecto({ ...nuevoProyecto, estadoActual: e.target.value })
+          }
+        />
+
+
         <button className="proyecto-boton" onClick={handleCrearProyecto} >
           <button className="proyecto-boton" onClick={() => window.history.back()}>
             Crear Proyecto
