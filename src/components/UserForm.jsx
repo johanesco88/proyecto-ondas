@@ -1,6 +1,6 @@
 // src/components/UserForm.jsx
 import { useState, useEffect } from "react";
-import '../App.css';
+import './CSS/UserForm.css';
 
 const UserForm = ({ onSubmit, initialData = {}, isEditing }) => {
   const [formData, setFormData] = useState({

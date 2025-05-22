@@ -9,18 +9,21 @@ import VerProyecto from './components/VerProyecto';
 import Proyectos from './components/Proyectos'
 import CrearProyecto from './components/CrearProyecto';
 import UserList from './components/UserList';
+import Layout from './components/Layout';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* Ruta raíz redirige a /login */}
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        
+        <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/Usuarios" element={<UserList />} />
-        <Route path="/Proyectos" element={<Proyectos />} />
+        <Route path="/" element={<Layout />}>
+                    <Route path="Home" element={<Home />} />
+                    <Route path="Usuarios" element={<UserList />} />
+                    <Route path="Proyectos" element={<Proyectos />} />
+                </Route>
+        {/* Rutas para los componentes de Proyectos */}        
         <Route path="/CrearProyecto" element={<CrearProyecto />} />
         <Route path="/EditarProyecto/:titulo/:id" element={<EditarProyecto />} />
         <Route path="/VerProyecto/:titulo/:id" element={<VerProyecto />} />

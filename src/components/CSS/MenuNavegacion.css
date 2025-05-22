@@ -1,0 +1,10 @@
+.MenuAvatar{
+    display: flex;
+    align-items: center;
+}
+.Saludo{
+    padding-right: 15px;
+}
+.Navegacion{
+    background-color: gray;
+}

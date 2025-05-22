@@ -1,10 +1,10 @@
 // src/components/Proyectos.jsx
 import React, { useState, useEffect } from "react";
 import { crearProyecto, obtenerProyectos, actualizarProyecto, eliminarProyecto } from "../services/proyectoService";
-import "./Proyectos.css";
+import "./CSS/Editar_CrearProyecto.css";
 import { useNavigate } from "react-router-dom";
 
-const Proyectos = () => {
+const CrearProyecto = () => {
   const [proyectos, setProyectos] = useState([]);
   const [nuevoProyecto, setNuevoProyecto] = useState({
     titulo: "",
@@ -131,8 +131,8 @@ const Proyectos = () => {
         />
 
 
-        <button className="proyecto-boton" onClick={handleCrearProyecto} >
-          <button className="proyecto-boton" onClick={() => window.history.back()}>
+        <button className="BotonesEditarCrear" id="ContenedorBotonCrearProyecto" onClick={handleCrearProyecto} >
+          <button className="BotonesEditarCrear" id="BotonCrearProyecto" onClick={() => window.history.back()}>
             Crear Proyecto
           </button>
         </button>
@@ -142,4 +142,4 @@ const Proyectos = () => {
   );
 };
 
-export default Proyectos;
+export default CrearProyecto;

@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import { obtenerProyectos, actualizarProyecto } from "../services/proyectoService";
 import CircularProgress, { circularProgressClasses } from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import "./EditarProyecto.css";
+import "./CSS/Editar_CrearProyecto.css";
 
 
-const VerProyecto = () => {
+const EditarProyecto = () => {
   const { id } = useParams();
   const [proyecto, setProyecto] = useState(null);
 
@@ -107,10 +107,10 @@ const VerProyecto = () => {
         />
 
         
-        <button className="proyecto-boton" onClick={handleActualizar}>
+        <button className="BotonesEditarCrear" onClick={handleActualizar}>
           Guardar Cambios
         </button>
-        <button className="proyecto-boton" onClick={() => window.history.back()}>
+        <button className="BotonesEditarCrear" onClick={() => window.history.back()}>
           Regresar
         </button>
       </div>
@@ -118,4 +118,4 @@ const VerProyecto = () => {
   );
 };
 
-export default VerProyecto;
+export default EditarProyecto;

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { createUser, getUsers, updateUser, deleteUser } from "../services/userService";
 import UserForm from "./UserForm";
-import '../App.css';
+import './CSS/UserList.css';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);

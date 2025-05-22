@@ -5,7 +5,7 @@ import {
   actualizarProyecto,
   obtenerUsuarios,
 } from "../services/proyectoService"; // asegúrate de tener estas funciones
-import "./VerProyecto.css";
+import "./CSS/VerProyecto.css";
 
 const VerProyecto = () => {
   const { id } = useParams();

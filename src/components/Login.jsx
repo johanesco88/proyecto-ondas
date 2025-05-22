@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { registrarUsuario, iniciarSesion, iniciarSesionConGoogle } from "../services/authService";
 import { useNavigate } from "react-router-dom";
-import "../App.css"; // Importa el archivo de estilos
+import "./CSS/Login.css"; 
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -30,7 +30,7 @@ const Login = () => {
         navigate("/home");
       }
     } catch (error) {
-      setError(error.message);
+      setError("Usuario o contrseña incorrectos");
     }
   };
 
@@ -39,7 +39,7 @@ const Login = () => {
       await iniciarSesionConGoogle();
       navigate("/home");
     } catch (error) {
-      setError(error.message);
+      setError("Usuario o contrseña incorrectos");
     }
   };
 

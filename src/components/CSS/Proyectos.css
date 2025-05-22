@@ -1,0 +1,413 @@
+:root {
+  /* Colores RGB para animaciones */
+  --color-1: #ff0000;
+  /* Rojo */
+  --color-2: #ff7f00;
+  /* Naranja */
+  --color-3: #ffff00;
+  /* Amarillo */
+  --color-4: #00ff00;
+  /* Verde */
+  --color-5: #0000ff;
+  /* Azul */
+  --color-6: #4b0082;
+  /* Índigo */
+  --color-7: #9400d3;
+  /* Violeta */
+  --color-8: #00ffaa;
+  /* Verde viche */
+  --color-9: #ff00c8;
+  /* Naranja claro */
+  --color-10: #00ffff;
+  /* Magenta */
+}
+
+/* Contenedor principal de proyectos */
+.proyectos-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Título principal */
+.proyectos-titulo {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 3rem;
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.proyectos-titulo::before {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -60px;
+  font-size: 3rem;
+  opacity: 0.8;
+}
+
+.proyectos-titulo::after {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 5px;
+  background: linear-gradient(90deg, var(--color-10), var(--color-4));
+  border-radius: 3px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Lista de proyectos */
+.proyecto-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 3rem auto;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  max-width: 1200px;
+}
+
+/* Tarjeta de proyecto */
+.proyecto-item {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  position: relative;
+  overflow: hidden;
+  transform: translateY(0);
+}
+
+.proyecto-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--color-10), var(--color-4));
+}
+
+.proyecto-item::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.proyecto-item:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* Título del proyecto */
+.proyecto-item-titulo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.proyecto-item h3.proyecto-item-titulo {
+  font-size: 1.6rem;
+  color: #667eea;
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 1.5rem;
+  text-transform: capitalize;
+}
+
+/* Información del proyecto */
+.proyecto-item p.proyecto-item-titulo {
+  font-size: 0.95rem;
+  color: #4a5568;
+  margin-bottom: 0.8rem;
+  line-height: 1.6;
+  padding: 0.5rem 0;
+  border-left: 3px solid transparent;
+  padding-left: 1rem;
+  transition: all 0.3s ease;
+  text-align: left;
+  font-weight: 500;
+}
+
+.proyecto-item p.proyecto-item-titulo:hover {
+  border-left-color: #08ff83;
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 0 8px 8px 0;
+}
+
+
+/* Contenedor de botones del proyecto */
+.proyecto-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.proyecto-item>button {
+  margin-top: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.proyecto-item>button::before {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.proyecto-item>button:hover::before {
+  left: 100%;
+}
+
+/* Botón Actualizar */
+.proyecto-actualizar {
+  background: transparent;
+  border: 1px solid var(--color-10);
+  color: white;
+  margin-top: 1.5rem !important;
+}
+
+.proyecto-actualizar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 0px 20px var(--color-10);
+  background: linear-gradient(135deg, var(--color-10));
+  color: black;
+}
+
+/* Botón Eliminar */
+.proyecto-eliminar {
+   background: transparent;
+  border: 1px solid var(--color-4);
+  color: white;
+}
+
+.proyecto-eliminar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 0px 20px var(--color-4);
+  background: linear-gradient(135deg, var(--color-4));
+  color: black;
+}
+
+/* Botón Ver proyecto */
+.proyecto-Mostrar {
+   background: transparent;
+  border: 1px solid var(--color-8);
+  color: white;
+}
+
+.proyecto-Mostrar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 0px 20px var(--color-8);
+  background: linear-gradient(135deg, var(--color-8));
+  color: black;
+}
+
+/* Botón Crear Proyecto */
+.proyecto-boton {
+  display: block;
+  margin: 0 auto;
+  padding: 0.7rem 5rem;
+  background: linear-gradient(135deg, var(--color-10), var(--color-4));
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.proyecto-boton::before {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.proyecto-boton:hover {
+  box-shadow: 0 0px 25px rgba(0, 255, 136, 0.4);
+}
+.proyecto-boton:not(:hover) {
+  box-shadow: 0 0px 0px rgba(0, 185, 99, 0.5);
+}
+
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(-50%) scale(1);
+  }
+
+  to {
+    transform: translateY(-50%) scale(1.2);
+  }
+}
+
+.proyecto-item {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.proyecto-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.proyecto-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.proyecto-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.proyecto-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.proyecto-item:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.proyecto-item:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+/* Estado vacío */
+.proyecto-lista:empty::after {
+  content: 'No hay proyectos disponibles\ACrear tu primer proyecto';
+  white-space: pre;
+  display: block;
+  text-align: center;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 3rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  grid-column: 1 / -1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .proyectos-container {
+    padding: 1rem;
+  }
+
+  .proyectos-titulo {
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .proyectos-titulo::before {
+    top: -40px;
+    font-size: 2rem;
+  }
+
+  .proyecto-lista {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .proyecto-item {
+    padding: 1.5rem;
+  }
+
+  .proyecto-item-titulo {
+    font-size: 1.2rem;
+  }
+
+  .proyecto-item h3.proyecto-item-titulo {
+    font-size: 1.4rem;
+  }
+
+  .proyecto-boton {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .proyecto-item {
+    padding: 1rem;
+  }
+
+  .proyecto-item p.proyecto-item-titulo {
+    font-size: 0.9rem;
+  }
+
+  .proyectos-titulo {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+  }
+
+  .proyecto-item>button {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Modo oscuro (opcional) */
+@media (prefers-color-scheme: dark) {
+  .proyecto-item {
+    background: rgba(45, 55, 72, 0.9);
+    color: white;
+  }
+
+  .proyecto-item h3.proyecto-item-titulo {
+    color: #ffffff;
+  }
+
+  .proyecto-item p.proyecto-item-titulo {
+    color: #e2e8f0;
+  }
+}

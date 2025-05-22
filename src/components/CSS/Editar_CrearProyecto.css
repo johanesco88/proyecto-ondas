@@ -1,0 +1,218 @@
+.Cargando{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+:root {
+  /* Colores RGB para animaciones */
+  --color-1: #ff0000; /* Rojo */
+  --color-2: #ff7f00; /* Naranja */
+  --color-3: #ffff00; /* Amarillo */
+  --color-4: #00ff00; /* Verde */
+  --color-5: #0000ff; /* Azul */
+  --color-6: #4b0082; /* Índigo */
+  --color-7: #9400d3; /* Violeta */
+  --color-8: #00ffaa; /* Verde viche */
+  --color-9: #ff00c8; /* Naranja claro */
+  --color-10: #00ffff; /* Magenta */
+}
+
+/* Animaciones */
+@keyframes shimmer {
+  0%, 100% {
+    background-position: -200% 0;
+  }
+  50% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Container principal de proyectos */
+.proyectos-container {
+  max-width: 650px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Título de proyectos */
+.proyectos-titulo {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 2rem;
+  background-color: white;
+  background-clip: text;
+  position: relative;
+}
+
+.proyectos-titulo::after {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-10), var(--color-4));
+  border-radius: 2px;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Formulario de proyecto */
+.proyecto-formulario {
+  border-radius: 25px;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding: 2.5rem;
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transform: translateY(0);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.proyecto-formulario::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(90deg, var(--color-10), var(--color-4));
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+
+
+/* Inputs del proyecto */
+.proyecto-input {
+  width: 100%;
+  padding: 1.2rem;
+  border: none;
+  margin-bottom: 1.2rem;
+  border-radius: 15px;
+  font-size: 1.1rem;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: rgb(107, 107, 107);
+  position: relative;
+  font-family: inherit;
+  background: rgba(255, 255, 255, 0);
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+}
+
+.proyecto-input:focus {
+  outline: none;
+  border: 1px solid var(--color-10);
+  background: rgb(255, 255, 255);
+  transform: scale(1.03);
+}
+
+.proyecto-input::placeholder {
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* Botones del proyecto */
+.BotonesEditarCrear {
+  width: 100%;
+  padding: 0.5rem;
+  background: transparent;
+  color: white;
+  border: 1px solid var(--color-10);
+  border-radius: 15px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  font-family: inherit;
+}
+
+.BotonesEditarCrear::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.BotonesEditarCrear:hover::before {
+  left: 100%;
+}
+
+.BotonesEditarCrear:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 255, 136, 0.377);
+}
+
+.BotonesEditarCrear:active {
+  transform: translateY(-1px) scale(1.01);
+}
+
+/* Botón específico para guardar cambios */
+.BotonesEditarCrear {
+  background: transparent;
+}
+
+.BotonesEditarCrear:hover {
+  background: linear-gradient(135deg, var(--color-10), var(--color-8));
+  box-shadow: 0 15px 30px rgba(0, 255, 170, 0.4);
+  color: black;
+}
+
+#ContenedorBotonCrearProyecto{
+  padding: 0rem;
+  
+}
+
+#BotonCrearProyecto{
+  background: transparent;
+  padding: 1rem;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .proyectos-container {
+    margin: 1rem auto;
+    padding: 0 0.5rem;
+  }
+  
+  .proyecto-formulario {
+    padding: 1.5rem;
+    border-radius: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+  }
+  
+  .proyectos-titulo {
+    font-size: 2rem;
+  }
+  
+  .proyecto-input,
+  .BotonesEditarCrear {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}

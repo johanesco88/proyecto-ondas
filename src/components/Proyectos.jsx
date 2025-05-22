@@ -1,8 +1,9 @@
 // src/components/Proyectos.jsx
 import React, { useState, useEffect } from "react";
 import { crearProyecto, obtenerProyectos, actualizarProyecto, eliminarProyecto } from "../services/proyectoService";
-import "./Proyectos.css"; 
+import "./CSS/Proyectos.css";
 import { useNavigate } from "react-router-dom";
+
 
 const Proyectos = () => {
   const [proyectos, setProyectos] = useState([]);
@@ -14,7 +15,7 @@ const Proyectos = () => {
     institucion: "",
     docenteId: "",
     observaciones: "",
-    estado:"Formulacion",
+    estado: "Formulacion",
   });
 
   const navigate = useNavigate();
@@ -62,7 +63,8 @@ const Proyectos = () => {
   };
 
   return (
-     <div className="proyectos-container">
+
+    <div className="proyectos-container">
       <h2 className="proyectos-titulo">Proyectos</h2>
 
       <ul className="proyecto-lista">
@@ -96,9 +98,9 @@ const Proyectos = () => {
           </li>
         ))}
       </ul>
-        <button className="proyecto-boton" onClick={() => navigate(`/CrearProyecto`)}>
-          Crear Proyecto
-        </button>
+      <button className="proyecto-boton" onClick={() => navigate(`/CrearProyecto`)}>
+        Crear Proyecto
+      </button>
     </div>
   );
 };
