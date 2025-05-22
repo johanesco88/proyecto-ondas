@@ -8,3 +8,68 @@
 .Navegacion{
     background-color: gray;
 }
+/* Centra el carrusel */
+.CarruselContainer {
+    width: 100vw;
+    height: 60vh; /* Ajusta esta altura según prefieras (por ejemplo: 500px) */
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.carousel,
+.carousel-inner,
+.carousel-item,
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* Estilo para el texto del carrusel */
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 10px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    max-width: 90%;
+    text-align: center;
+}
+
+.carousel-caption h3,
+.carousel-caption p {
+    color: white;
+    margin: 0;
+}
+
+
+/* Título de noticias */
+.tituloNoticias {
+    text-align: center;
+    margin: 40px 0 20px;
+    font-size: 2rem;
+}
+
+/* Grid adaptable de tarjetas */
+.CardsNoticias {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 0 20px 40px;
+}
+
+/* Estilo individual de la card */
+.CardNoticia {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.CardNoticia:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}

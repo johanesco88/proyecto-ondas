@@ -2,6 +2,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 
+
 import Login from './components/Login';
 import { Home } from './components/Home';
 import EditarProyecto from './components/EditarProyecto';
