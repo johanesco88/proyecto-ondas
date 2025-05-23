@@ -44,26 +44,52 @@ export const Home = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="https://media.istockphoto.com/id/2079713132/es/vector/certificaci%C3%B3n-forestal-a-partir-del-concepto-de-esquema-de-inspecci%C3%B3n-est%C3%A1ndar-ambiental.jpg?s=612x612&w=0&k=20&c=8xN7-9-T4ztouKFJly9ZYzyRg_-IxSkVWTdil4dWylk="
-                            alt="Convocatoria Sakura Program 2024"
+                            src="https://afaesmolinar.com/wp-content/uploads/2023/03/hort-escolar-amipa-es-molinar.jpg"
+                            alt="Huerta Escolar Agroecológica"
                         />
                         <Carousel.Caption>
                             <div className="CarruselTexto">
-                                <h3>Convocatoria Sakura Program 2024</h3>
-                                <p>El Gobierno de Japón, a través de la Agencia de Ciencia y Tecnología del Japón (JST), con el apoyo del Ministerio de Educación, Cultura, Deporte...</p>
+                                <h3>Huerta Escolar Agroecológica</h3>
+                                <p>Promueve el aprendizaje práctico sobre agricultura sostenible mediante la creación y cuidado de una huerta escolar.</p>
                             </div>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="https://ondas.minciencias.gov.co/sites/default/files/styles/imagen_noticia/public/2024-03/mision_ondas_mexico.jpg"
-                            alt="Misión Ondas México"
+                            src="https://digikids-wp.s3.eu-west-1.amazonaws.com/wp-content/uploads/2023/06/28130844/Blog-Scratch-Digikids.png"
+                            alt="Aprendamos a Programar con Scratch"
                         />
                         <Carousel.Caption>
                             <div className="CarruselTexto">
-                                <h3>Misión Ondas México</h3>
-                                <p>¡Inscríbete hasta el 16 de abril! En el marco de las estrategias de movilidad y divulgación el programa Ondas en alianza con universidades mexicanas...</p>
+                                <h3>Aprendamos a Programar con Scratch</h3>
+                                <p>Introduce a los estudiantes en la programación básica usando Scratch, fomentando lógica y creatividad.</p>
+                            </div>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="https://media.istockphoto.com/id/2079713132/es/vector/certificaci%C3%B3n-forestal-a-partir-del-concepto-de-esquema-de-inspecci%C3%B3n-est%C3%A1ndar-ambiental.jpg?s=612x612&w=0&k=20&c=8xN7-9-T4ztouKFJly9ZYzyRg_-IxSkVWTdil4dWylk="
+                            alt="Guardianes del Agua"
+                        />
+                        <Carousel.Caption>
+                            <div className="CarruselTexto">
+                                <h3>Guardianes del Agua</h3>
+                                <p>Sensibiliza sobre el uso responsable del agua a través de campañas dirigidas por los estudiantes.</p>
+                            </div>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="https://media.istockphoto.com/id/2079713132/es/vector/certificaci%C3%B3n-forestal-a-partir-del-concepto-de-esquema-de-inspecci%C3%B3n-est%C3%A1ndar-ambiental.jpg?s=612x612&w=0&k=20&c=8xN7-9-T4ztouKFJly9ZYzyRg_-IxSkVWTdil4dWylk="
+                            alt="Club de Lectura Juvenil"
+                        />
+                        <Carousel.Caption>
+                            <div className="CarruselTexto">
+                                <h3>Club de Lectura Juvenil</h3>
+                                <p>Fomenta la lectura y la escritura creativa mediante encuentros literarios entre estudiantes.</p>
                             </div>
                         </Carousel.Caption>
                     </Carousel.Item>

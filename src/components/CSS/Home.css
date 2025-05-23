@@ -9,41 +9,64 @@
     background-color: gray;
 }
 /* Centra el carrusel */
-.CarruselContainer {
-    width: 100vw;
-    height: 60vh; /* Ajusta esta altura según prefieras (por ejemplo: 500px) */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    min-height: 350px; /* altura fija para desktop */
+    margin-bottom: 2rem;
     overflow: hidden;
-    margin: 0 auto;
-}
-
-.carousel,
-.carousel-inner,
-.carousel-item,
-.carousel-item img {
+  }
+  
+  .carousel-item {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .carousel-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-
-/* Estilo para el texto del carrusel */
-.carousel-caption {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 15px;
-    border-radius: 10px;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: auto;
-    max-width: 90%;
-    text-align: center;
-}
-
-.carousel-caption h3,
-.carousel-caption p {
+    display: block;
+  }
+  
+  .carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* barra semitransparente */
     color: white;
-    margin: 0;
+    padding: 1rem 2rem;
+    border-radius: 0; /* sin bordes redondeados para ocupar todo el ancho */
+    text-align: center;
+    z-index: 2;
+    box-sizing: border-box;
 }
+  
+  /* Responsive para tablets y móviles */
+  @media (max-width: 768px) {
+    .carousel-container {
+      min-height: 250px; /* más bajo en pantallas pequeñas */
+    }
+  
+    .carousel-caption {
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+      max-width: 90%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .carousel-container {
+      min-height: 200px;
+    }
+  
+    .carousel-caption {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.8rem;
+    }
+  }
 
 
 /* Título de noticias */
