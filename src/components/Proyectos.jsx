@@ -15,7 +15,9 @@ const Proyectos = () => {
     institucion: "",
     docenteId: "",
     observaciones: "",
-    estado: "Formulacion",
+    integrantes: [],
+    objetivos: [],
+    historialEstados: []
   });
 
   const navigate = useNavigate();
@@ -35,7 +37,7 @@ const Proyectos = () => {
     try {
       const id = await crearProyecto(nuevoProyecto);
       setProyectos([...proyectos, { ...nuevoProyecto, id }]);
-      setNuevoProyecto({ titulo: "", area: "", cronograma: "", presupuesto: 0, institucion: "", docenteId: "", observaciones: "" });
+      setNuevoProyecto({ titulo: "", area: "", cronograma: "", presupuesto: 0, institucion: "", docenteId: "", observaciones: "", integrantes: [], objetivos: [], avances: [], historialEstados: [] });
     } catch (error) {
       console.error("Error al crear proyecto:", error);
     }
@@ -76,7 +78,34 @@ const Proyectos = () => {
             <p className="proyecto-item-titulo">Presupuesto: {proyecto.presupuesto}</p>
             <p className="proyecto-item-titulo">Institución Encargada: {proyecto.institucion}</p>
             <p className="proyecto-item-titulo">Docente Encargado: {proyecto.docenteId}</p>
-            <p className="proyecto-item-titulo">Estado: {proyecto.estadoActual}</p>
+            <p className="proyecto-item-titulo">
+              Integrantes:
+              <ul>
+                {proyecto.integrantes.map((i, idx) => (
+                  <li key={idx}>{i.nombre}</li>
+                ))}
+              </ul>
+            </p>
+
+            <p className="proyecto-item-titulo">
+              Objetivos:
+              <ul>
+                {proyecto.objetivos.map((o, idx) => (
+                  <li key={idx}>{o.descripcion}</li>
+                ))}
+              </ul>
+            </p>
+            <p className="proyecto-item-titulo">
+              Estado(s):
+              <ul>
+                {proyecto.historialEstados.map((estado, idx) => (
+                  <li key={idx}>
+                    <strong>{estado.estado}</strong> - {new Date(estado.fecha).toLocaleDateString()}<br />
+                    <em>{estado.observaciones}</em>
+                  </li>
+                ))}
+              </ul>
+            </p>
             <button
               className="proyecto-actualizar"
               onClick={() => navigate(`/EditarProyecto/${proyecto.titulo}/${proyecto.id}`)}

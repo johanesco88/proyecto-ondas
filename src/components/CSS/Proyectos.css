@@ -100,18 +100,6 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(90deg, var(--color-10), var(--color-4));
 }
 
-.proyecto-item::after {
-  content: '';
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-  border-radius: 50%;
-  opacity: 0.5;
-}
-
 .proyecto-item:hover {
   transform: translateY(-10px) scale(1.02);
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
@@ -130,7 +118,6 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 .proyecto-item h3.proyecto-item-titulo {
   font-size: 1.6rem;
-  color: #667eea;
   border-bottom: 2px solid #e2e8f0;
   margin-bottom: 1.5rem;
   text-transform: capitalize;
@@ -322,7 +309,7 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 /* Estado vacío */
 .proyecto-lista:empty::after {
-  content: 'No hay proyectos disponibles\ACrear tu primer proyecto';
+  content: 'No hay proyectos disponibles / Crea tu primer proyecto';
   white-space: pre;
   display: block;
   text-align: center;
