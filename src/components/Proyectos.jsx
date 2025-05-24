@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { crearProyecto, obtenerProyectos, actualizarProyecto, eliminarProyecto } from "../services/proyectoService";
 import "./CSS/Proyectos.css";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 const Proyectos = () => {
@@ -64,6 +66,14 @@ const Proyectos = () => {
     }
   };
 
+  if (!proyectos) { 
+    return (
+      <Box className="Cargando">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
 
     <div className="proyectos-container">
@@ -74,38 +84,8 @@ const Proyectos = () => {
           <li key={proyecto.id} className="proyecto-item">
             <h3 className="proyecto-item-titulo">{proyecto.titulo}</h3>
             <p className="proyecto-item-titulo">Área: {proyecto.area}</p>
-            <p className="proyecto-item-titulo">Cronograma: {proyecto.cronograma}</p>
-            <p className="proyecto-item-titulo">Presupuesto: {proyecto.presupuesto}</p>
             <p className="proyecto-item-titulo">Institución Encargada: {proyecto.institucion}</p>
             <p className="proyecto-item-titulo">Docente Encargado: {proyecto.docenteId}</p>
-            <p className="proyecto-item-titulo">
-              Integrantes:
-              <ul>
-                {proyecto.integrantes.map((i, idx) => (
-                  <li key={idx}>{i.nombre}</li>
-                ))}
-              </ul>
-            </p>
-
-            <p className="proyecto-item-titulo">
-              Objetivos:
-              <ul>
-                {proyecto.objetivos.map((o, idx) => (
-                  <li key={idx}>{o.descripcion}</li>
-                ))}
-              </ul>
-            </p>
-            <p className="proyecto-item-titulo">
-              Estado(s):
-              <ul>
-                {proyecto.historialEstados.map((estado, idx) => (
-                  <li key={idx}>
-                    <strong>{estado.estado}</strong> - {new Date(estado.fecha).toLocaleDateString()}<br />
-                    <em>{estado.observaciones}</em>
-                  </li>
-                ))}
-              </ul>
-            </p>
             <button
               className="proyecto-actualizar"
               onClick={() => navigate(`/EditarProyecto/${proyecto.titulo}/${proyecto.id}`)}

@@ -23,11 +23,11 @@ function App() {
                     <Route path="Home" element={<Home />} />
                     <Route path="Usuarios" element={<UserList />} />
                     <Route path="Proyectos" element={<Proyectos />} />
+                    <Route path="/CrearProyecto" element={<CrearProyecto />} />
+                    <Route path="/EditarProyecto/:titulo/:id" element={<EditarProyecto />} />
+                    <Route path="/VerProyecto/:titulo/:id" element={<VerProyecto />} />
                 </Route>
         {/* Rutas para los componentes de Proyectos */}        
-        <Route path="/CrearProyecto" element={<CrearProyecto />} />
-        <Route path="/EditarProyecto/:titulo/:id" element={<EditarProyecto />} />
-        <Route path="/VerProyecto/:titulo/:id" element={<VerProyecto />} />
         
         {/* Ruta para manejar errores 404 opcional */}
         <Route path="*" element={<h2 style={{ textAlign: "center" }}>404 - Página no encontrada</h2>} />

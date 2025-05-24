@@ -17,8 +17,7 @@ import './CSS/MenuNavegacion.css';
 
 
 const settings = [
-    { label: 'Perfil', path: '/' },
-    { label: 'Cuenta', path: '/' },
+
     { label: 'Cerrar sesión', path: '/login' }];
 
 const pages = [
@@ -115,7 +114,6 @@ function ResponsiveAppBar() {
                         </Menu>
                     </Box>
 
-                    {/* Menú normal visible en md+ */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
                             <Button
@@ -130,7 +128,6 @@ function ResponsiveAppBar() {
                         ))}
                     </Box>
 
-                    {/* Zona de usuario */}
                     <Box sx={{ flexGrow: 0 }}>
                         <div className='MenuAvatar'>
                             <Typography className='Saludo' variant="h6">

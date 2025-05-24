@@ -1,6 +1,8 @@
 // src/components/UserForm.jsx
 import { useState, useEffect } from "react";
 import './CSS/UserForm.css';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const UserForm = ({ onSubmit, initialData = {}, isEditing }) => {
   const [formData, setFormData] = useState({
@@ -52,6 +54,14 @@ const UserForm = ({ onSubmit, initialData = {}, isEditing }) => {
       });
     }
   };
+  
+  if (!formData) {
+    return (
+      <Box className="Cargando">
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} className="user-form">

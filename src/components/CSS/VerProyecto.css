@@ -21,6 +21,8 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px var(--shadow-glow);
   position: relative;
   overflow: hidden;
+  margin-top: 40px;
+  margin-bottom: 40px;
   animation: slideIn 0.8s ease-out;
 }
 

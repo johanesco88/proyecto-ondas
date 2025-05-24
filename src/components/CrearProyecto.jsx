@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { crearProyecto, obtenerProyectos, actualizarProyecto, eliminarProyecto, obtenerUsuarios } from "../services/proyectoService";
 import "./CSS/Editar_CrearProyecto.css";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const CrearProyecto = () => {
   const [proyectos, setProyectos] = useState([]);
@@ -159,6 +161,14 @@ const CrearProyecto = () => {
       historialEstados: nuevoProyecto.historialEstados.filter((_, i) => i !== idx),
     });
   };
+
+    if (!nuevoProyecto) {
+      return (
+        <Box className="Cargando">
+          <CircularProgress />
+        </Box>
+      );
+    }
 
   return (
     <div className="proyectos-container">

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { createUser, getUsers, updateUser, deleteUser } from "../services/userService";
 import UserForm from "./UserForm";
 import './CSS/UserList.css';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -58,6 +60,14 @@ const UserList = () => {
       handleDelete(id);
     }
   };
+
+    if (!users) {
+      return (
+        <Box className="Cargando">
+          <CircularProgress />
+        </Box>
+      );
+    }
 
   return (
     <div>

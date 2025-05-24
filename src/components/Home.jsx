@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import './CSS/Home.css';
 import { Carousel, Card } from 'react-bootstrap';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 export const Home = () => {
     const [user, setUser] = useState(null);
@@ -35,7 +37,13 @@ export const Home = () => {
             imagen: "https://biblored.gov.co/sites/default/files/2022-10/CLUBES.jpg"
         }
     ];
-
+  if (!user) {
+    return (
+      <Box className="Cargando">
+        <CircularProgress />
+      </Box>
+    );
+  }
     return (
         <div>
             {/* Carrusel */}

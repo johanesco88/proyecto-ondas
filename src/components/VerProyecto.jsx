@@ -5,6 +5,8 @@ import {
   obtenerUsuarios,
 } from "../services/proyectoService";
 import "./CSS/VerProyecto.css";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const VerProyecto = () => {
   const { id } = useParams();
@@ -26,7 +28,13 @@ const VerProyecto = () => {
   }, [id]);
 
   
-  if (!proyecto) return <p>Cargando...</p>;
+    if (!proyecto) {
+    return (
+      <Box className="Cargando">
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <div className="proyecto-informe">
