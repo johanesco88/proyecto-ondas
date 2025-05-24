@@ -96,3 +96,30 @@
     transform: scale(1.02);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
+/* Redes Sociales */
+.RedesSociales {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 40px 0 20px;
+  font-size: 2.5rem;
+}
+
+.RedesSociales a {
+  color: #444;
+  transition: color 0.3s ease;
+}
+
+.RedesSociales a:hover {
+  color: #007bff;
+}
+
+/* Credenciales */
+.Credenciales {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+  padding: 20px;
+  border-top: 1px solid #ccc;
+  background-color: #f9f9f9;
+}

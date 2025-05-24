@@ -95,6 +95,7 @@ export const Home = () => {
                     </Carousel.Item>
                 </Carousel>
             </div>
+            
 
             {/* Noticias */}
             <h2 className="tituloNoticias">Noticias Recientes</h2>
@@ -109,6 +110,27 @@ export const Home = () => {
                     </Card>
                 ))}
             </div>
+            {/* Redes sociales */}
+            <div className="RedesSociales">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-facebook-square"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-instagram"></i>
+                </a>
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-youtube"></i>
+                </a>
+                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-tiktok"></i>
+                </a>
+            </div>
+
+            {/* Credenciales */}
+            <footer className="Credenciales">
+                Plataforma desarrollada por [Tu Nombre o Institución] - 2025. Todos los derechos reservados.
+            </footer>
+
         </div>
     );
 };
