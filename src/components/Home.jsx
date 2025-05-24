@@ -15,24 +15,24 @@ export const Home = () => {
 
     const noticias = [
         {
-            titulo: "Convocatoria Sakura Program 2024",
-            descripcion: "El Gobierno de Japón, a través de la Agencia de Ciencia y Tecnología del Japón (JST), con el apoyo del Ministerio de Educación, Cultura, Deporte...",
-            imagen: "https://ondas.minciencias.gov.co/sites/default/files/styles/imagen_noticia/public/2024-03/convocatoria_sakura.jpg"
+            titulo: "Estudiantes cosechan sus primeros alimentos en la huerta escolar.",
+            descripcion: "Luego de meses de trabajo colaborativo, los estudiantes lograron recolectar la primera cosecha de lechugas, zanahorias y aromáticas, lo cual demuestra el éxito del aprendizaje práctico en agricultura sostenible.",
+            imagen: "https://cloudfront-us-east-1.images.arcpublishing.com/semana/LVUAQGWWWBB5LAS3QACL7QRN7I.jpg"
         },
         {
-            titulo: "Misión Ondas México",
-            descripcion: "¡Inscríbete hasta el 16 de abril! En el marco de las estrategias de movilidad y divulgación el programa Ondas en alianza con universidades mexicanas...",
-            imagen: "https://ondas.minciencias.gov.co/sites/default/files/styles/imagen_noticia/public/2024-03/mision_ondas_mexico.jpg"
+            titulo: "Niños de primaria presentan sus videojuegos creados en Scratch.",
+            descripcion: "En una feria tecnológica escolar, los estudiantes mostraron juegos interactivos desarrollados por ellos mismos, aplicando conceptos básicos de programación y lógica matemática.",
+            imagen: "https://miro.medium.com/v2/resize:fit:1200/0*76NpWjSxoxgmlKxX.png"
         },
         {
-            titulo: "Convocatorias 2024",
-            descripcion: "El programa Ondas inicia el 2024 abriendo 7 convocatorias departamentales para la conformación de grupos de investigación. No te pierdas la oportunidad...",
-            imagen: "https://ondas.minciencias.gov.co/sites/default/files/styles/imagen_noticia/public/2024-03/convocatorias_2024.jpg"
+            titulo: "Campaña estudiantil logra reducir el consumo de agua en un 30%.",
+            descripcion: "Gracias a la campaña “Cuidemos cada gota”, liderada por los estudiantes, la institución logró reducir significativamente el uso del agua mediante acciones educativas y rutinas de ahorro.",
+            imagen: "https://w3.fcq.unc.edu.ar/sites/default/files/styles/noticias/public/noticias/placa_campana_agua.png?itok=KOxYhv4_"
         },
         {
-            titulo: "Revive el 2023 del programa Ondas en fotos",
-            descripcion: "Nuestro año de investigación en fotos tomadas por nuestros asesores Ondas en todo Colombia...",
-            imagen: "https://ondas.minciencias.gov.co/sites/default/files/styles/imagen_noticia/public/2024-03/revive_2023.jpg"
+            titulo: "Club de lectura lanza su primera antología de cuentos estudiantiles.",
+            descripcion: "Los integrantes del club publicaron una recopilación de cuentos escritos por ellos, como resultado de los encuentros literarios y ejercicios de escritura creativa realizados durante el semestre.",
+            imagen: "https://biblored.gov.co/sites/default/files/2022-10/CLUBES.jpg"
         }
     ];
 
@@ -70,7 +70,7 @@ export const Home = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="https://media.istockphoto.com/id/2079713132/es/vector/certificaci%C3%B3n-forestal-a-partir-del-concepto-de-esquema-de-inspecci%C3%B3n-est%C3%A1ndar-ambiental.jpg?s=612x612&w=0&k=20&c=8xN7-9-T4ztouKFJly9ZYzyRg_-IxSkVWTdil4dWylk="
+                            src="https://cdn.www.gob.pe/uploads/document/file/4269040/standard_WhatsApp-Image-2023-03-14-at-17.24.51-1.jpeg.jpeg"
                             alt="Guardianes del Agua"
                         />
                         <Carousel.Caption>
@@ -83,7 +83,7 @@ export const Home = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="https://media.istockphoto.com/id/2079713132/es/vector/certificaci%C3%B3n-forestal-a-partir-del-concepto-de-esquema-de-inspecci%C3%B3n-est%C3%A1ndar-ambiental.jpg?s=612x612&w=0&k=20&c=8xN7-9-T4ztouKFJly9ZYzyRg_-IxSkVWTdil4dWylk="
+                            src="https://media.timeout.com/images/102777848/750/422/image.jpg"
                             alt="Club de Lectura Juvenil"
                         />
                         <Carousel.Caption>
