@@ -5,6 +5,8 @@ import "./CSS/Proyectos.css";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { useAuth } from '../hooks/useAuth';
+
 
 
 const Proyectos = () => {
@@ -23,6 +25,8 @@ const Proyectos = () => {
     historialEstados: []
   });
   const [docentes, setDocentes] = useState([]);
+  const { rol } = useAuth();
+
 
 
   const navigate = useNavigate();
@@ -108,12 +112,16 @@ const Proyectos = () => {
             >
               Actualizar
             </button>
-            <button
-              className="proyecto-eliminar"
-              onClick={() => handleEliminarProyecto(proyecto.id)}
-            >
-              Eliminar
-            </button>
+            {rol != 'estudiante' && (
+              <button
+                className="proyecto-eliminar"
+                onClick={() => handleEliminarProyecto(proyecto.id)}
+              >
+                Eliminar
+              </button>
+            )}
+
+
             <button
               className="proyecto-Mostrar"
               onClick={() => navigate(`/VerProyecto/${proyecto.titulo}/${proyecto.id}`)}
@@ -123,9 +131,13 @@ const Proyectos = () => {
           </li>
         ))}
       </ul>
-      <button className="proyecto-boton" onClick={() => navigate(`/CrearProyecto`)}>
+
+
+      {rol != 'estudiante' && (<button className="proyecto-boton" onClick={() => navigate(`/CrearProyecto`)}>
         Crear Proyecto
-      </button>
+      </button>)}
+
+
     </div>
   );
 };

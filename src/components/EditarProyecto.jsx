@@ -7,6 +7,8 @@ import "./CSS/Editar_CrearProyecto.css";
 import SubirArchivo from "./subirArchivo";
 import { auth } from '../services/firebase';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useAuth } from '../hooks/useAuth';
+
 
 
 
@@ -24,24 +26,19 @@ const EditarProyecto = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [resetSubida, setResetSubida] = useState(false);
 
-  const [usuarioActual, setUsuarioActual] = useState(null);
+  const { user: usuarioActual, rol, loading } = useAuth();
 
   useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUsuarioActual(user);
-        setNuevoAvance((prev) => ({
-          ...prev,
-          estudianteId: user.uid,
-        }));
-      } else {
-        setUsuarioActual(null);
-      }
-    });
+    if (usuarioActual) {
+      setNuevoAvance((prev) => ({
+        ...prev,
+        estudianteId: usuarioActual.uid,
+      }));
+    }
+  }, [usuarioActual]);
 
-    return () => unsubscribe(); // Limpia el listener
-  }, []);
+
+  const esEstudiante = rol === "estudiante";
 
 
 
@@ -209,108 +206,111 @@ const EditarProyecto = () => {
       <h2 className="proyectos-titulo">Editar Proyecto</h2>
       <div className="proyecto-formulario">
         <h3 className="Subtitulos">Información Básica</h3>
-        <input className="proyecto-input-lista" type="text" name="titulo" placeholder="Título" value={proyecto.titulo} onChange={handleChange} />
-        <input className="proyecto-input-lista" type="text" name="area" placeholder="Área" value={proyecto.area} onChange={handleChange} />
-        <input className="proyecto-input-lista" type="text" name="cronograma" placeholder="Cronograma" value={proyecto.cronograma} onChange={handleChange} />
-        <input className="proyecto-input-lista" type="number" name="presupuesto" placeholder="Presupuesto" value={proyecto.presupuesto} onChange={handleChange} />
-        <input className="proyecto-input-lista" type="text" name="institucion" placeholder="Institución" value={proyecto.institucion} onChange={handleChange} />
-        <textarea className="proyecto-input-lista" name="observaciones" placeholder="Descripción" value={proyecto.observaciones} onChange={handleChange} />
+        {!esEstudiante && (
+          <>
+            <input className="proyecto-input-lista" type="text" name="titulo" placeholder="Título" value={proyecto.titulo} onChange={handleChange} />
+            <input className="proyecto-input-lista" type="text" name="area" placeholder="Área" value={proyecto.area} onChange={handleChange} />
+            <input className="proyecto-input-lista" type="text" name="cronograma" placeholder="Cronograma" value={proyecto.cronograma} onChange={handleChange} />
+            <input className="proyecto-input-lista" type="number" name="presupuesto" placeholder="Presupuesto" value={proyecto.presupuesto} onChange={handleChange} />
+            <input className="proyecto-input-lista" type="text" name="institucion" placeholder="Institución" value={proyecto.institucion} onChange={handleChange} />
+            <textarea className="proyecto-input-lista" name="observaciones" placeholder="Descripción" value={proyecto.observaciones} onChange={handleChange} />
 
-        <h3 className="Subtitulos">Docente Encargado</h3>
-        <select
-          className="proyecto-input-lista"
-          value={proyecto.docenteId}
-          onChange={(e) =>
-            setProyecto({ ...proyecto, docenteId: e.target.value })
-          }
-        >
-          <option value="">-- Selecciona docente --</option>
-          {usuarios
-            .filter((u) => u.rol === "docente")
-            .map((u) => (
-              <option key={u.id} value={u.id}>
-                {u.nombres} {u.apellidos}
-              </option>
-            ))}
-        </select>
+            <h3 className="Subtitulos">Docente Encargado</h3>
+            <select
+              className="proyecto-input-lista"
+              value={proyecto.docenteId}
+              onChange={(e) =>
+                setProyecto({ ...proyecto, docenteId: e.target.value })
+              }
+            >
+              <option value="">-- Selecciona docente --</option>
+              {usuarios
+                .filter((u) => u.rol === "docente")
+                .map((u) => (
+                  <option key={u.id} value={u.id}>
+                    {u.nombres} {u.apellidos}
+                  </option>
+                ))}
+            </select>
 
-        <h3 className="Subtitulos">Integrantes</h3>
-        <ul className="proyecto-input-lista">
-          {proyecto.integrantes.map((i, idx) => (
-            <li key={idx}>
-              {i.nombres} {i.apellidos}
-              <button className="BotonEliminar" type="button" onClick={() => eliminarIntegrante(i.idUsuario)}>✘</button>
-            </li>
-          ))}
-        </ul>
+            <h3 className="Subtitulos">Integrantes</h3>
+            <ul className="proyecto-input-lista">
+              {proyecto.integrantes.map((i, idx) => (
+                <li key={idx}>
+                  {i.nombres} {i.apellidos}
+                  <button className="BotonEliminar" type="button" onClick={() => eliminarIntegrante(i.idUsuario)}>✘</button>
+                </li>
+              ))}
+            </ul>
 
-        <select className="proyecto-input-lista" value={nuevoIntegrante} onChange={(e) => setNuevoIntegrante(e.target.value)}>
-          <option value="">-- Selecciona estudiante --</option>
-          {usuarios
-            .filter((u) => u.rol === "estudiante")
-            .map((u) => (
-              <option key={u.id} value={u.id}>
-                {u.nombres} {u.apellidos}
-              </option>
-            ))}
-        </select>
+            <select className="proyecto-input-lista" value={nuevoIntegrante} onChange={(e) => setNuevoIntegrante(e.target.value)}>
+              <option value="">-- Selecciona estudiante --</option>
+              {usuarios
+                .filter((u) => u.rol === "estudiante")
+                .map((u) => (
+                  <option key={u.id} value={u.id}>
+                    {u.nombres} {u.apellidos}
+                  </option>
+                ))}
+            </select>
 
-        <button className="BotonAgregar" onClick={agregarIntegrante}>Agregar integrante</button>
+            <button className="BotonAgregar" onClick={agregarIntegrante}>Agregar integrante</button>
 
-        <h3 className="Subtitulos">Objetivos</h3>
-        <ul className="proyecto-input-lista">
-          {proyecto.objetivos.map((o, idx) => (
-            <li key={idx}>
-              {o.descripcion}
-              <button className="BotonEliminar" type="button" onClick={() => eliminarObjetivo(o.id)}>✘</button>
-            </li>
-          ))}
-        </ul>
-        <input
-          className="proyecto-input-lista"
-          type="text"
-          placeholder="Nuevo objetivo"
-          value={nuevoObjetivo}
-          onChange={(e) => setNuevoObjetivo(e.target.value)}
-        />
-        <button className="BotonAgregar" type="button" onClick={agregarObjetivo}>Agregar objetivo</button>
+            <h3 className="Subtitulos">Objetivos</h3>
+            <ul className="proyecto-input-lista">
+              {proyecto.objetivos.map((o, idx) => (
+                <li key={idx}>
+                  {o.descripcion}
+                  <button className="BotonEliminar" type="button" onClick={() => eliminarObjetivo(o.id)}>✘</button>
+                </li>
+              ))}
+            </ul>
+            <input
+              className="proyecto-input-lista"
+              type="text"
+              placeholder="Nuevo objetivo"
+              value={nuevoObjetivo}
+              onChange={(e) => setNuevoObjetivo(e.target.value)}
+            />
+            <button className="BotonAgregar" type="button" onClick={agregarObjetivo}>Agregar objetivo</button>
 
-        <h3 className="Subtitulos">Historial de Estados</h3>
-        <ul className="proyecto-input-lista">
-          {proyecto.historialEstados.map((e, idx) => (
-            <li key={idx}>
-              <div className="ContenedorContenidoListas">
-                <strong>{e.estado} </strong> - {new Date(e.fecha).toLocaleDateString()}
-                <br />
-                <em> {e.observaciones}</em>
-              </div>
-              <button className="BotonEliminar" type="button" onClick={() => eliminarEstado(idx)}>✘</button>
-            </li>
-          ))}
-        </ul>
-        <select
-          className="proyecto-input-lista"
-          value={nuevoEstado.estado}
-          onChange={(e) => setNuevoEstado({ ...nuevoEstado, estado: e.target.value })}
-        >
-          <option value="">-- Seleccionar estado --</option>
-          <option value="Formulación">Formulación</option>
-          <option value="Evaluación">Evaluación</option>
-          <option value="Activo">Activo</option>
-          <option value="Inactivo">Inactivo</option>
-          <option value="Finalizado">Finalizado</option>
-        </select>
+            <h3 className="Subtitulos">Historial de Estados</h3>
+            <ul className="proyecto-input-lista">
+              {proyecto.historialEstados.map((e, idx) => (
+                <li key={idx}>
+                  <div className="ContenedorContenidoListas">
+                    <strong>{e.estado} </strong> - {new Date(e.fecha).toLocaleDateString()}
+                    <br />
+                    <em> {e.observaciones}</em>
+                  </div>
+                  <button className="BotonEliminar" type="button" onClick={() => eliminarEstado(idx)}>✘</button>
+                </li>
+              ))}
+            </ul>
+            <select
+              className="proyecto-input-lista"
+              value={nuevoEstado.estado}
+              onChange={(e) => setNuevoEstado({ ...nuevoEstado, estado: e.target.value })}
+            >
+              <option value="">-- Seleccionar estado --</option>
+              <option value="Formulación">Formulación</option>
+              <option value="Evaluación">Evaluación</option>
+              <option value="Activo">Activo</option>
+              <option value="Inactivo">Inactivo</option>
+              <option value="Finalizado">Finalizado</option>
+            </select>
 
-        <textarea
-          className="proyecto-input-lista"
-          placeholder="Observaciones del estado"
-          value={nuevoEstado.observaciones}
-          onChange={(e) => setNuevoEstado({ ...nuevoEstado, observaciones: e.target.value })}
-        />
-        <button className="BotonAgregar" type="button" onClick={agregarEstado}>Agregar estado</button>
-
+            <textarea
+              className="proyecto-input-lista"
+              placeholder="Observaciones del estado"
+              value={nuevoEstado.observaciones}
+              onChange={(e) => setNuevoEstado({ ...nuevoEstado, observaciones: e.target.value })}
+            />
+            <button className="BotonAgregar" type="button" onClick={agregarEstado}>Agregar estado</button>
+          </>)}
         <h3 className="Subtitulos">Avances del Proyecto</h3>
         <ul className="proyecto-input-lista">
+
           {(proyecto.avances || []).map((a, idx) => (
             <li key={idx}>
               <div className="ContenedorContenidoListas">

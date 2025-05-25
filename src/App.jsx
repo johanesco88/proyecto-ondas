@@ -11,25 +11,56 @@ import Proyectos from './components/Proyectos'
 import CrearProyecto from './components/CrearProyecto';
 import UserList from './components/UserList';
 import Layout from './components/Layout';
+import PrivateRoute from './components/PrivateRoute';
+import { useAuth } from './hooks/useAuth';
+
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Ruta raíz redirige a /login */}
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
+
         <Route path="/" element={<Layout />}>
-                    <Route path="Home" element={<Home />} />
-                    <Route path="Usuarios" element={<UserList />} />
-                    <Route path="Proyectos" element={<Proyectos />} />
-                    <Route path="/CrearProyecto" element={<CrearProyecto />} />
-                    <Route path="/EditarProyecto/:titulo/:id" element={<EditarProyecto />} />
-                    <Route path="/VerProyecto/:titulo/:id" element={<VerProyecto />} />
-                </Route>
-        {/* Rutas para los componentes de Proyectos */}        
-        
-        {/* Ruta para manejar errores 404 opcional */}
+          <Route path="Home" element={
+            <PrivateRoute allowedRoles={['administrador', 'coordinador', 'docente', 'estudiante']}>
+              <Home />
+            </PrivateRoute>
+          } />
+
+          <Route path="Usuarios" element={
+            <PrivateRoute allowedRoles={['administrador', 'coordinador']}>
+              <UserList />
+            </PrivateRoute>
+          } />
+
+          <Route path="Proyectos" element={
+            <PrivateRoute allowedRoles={['administrador', 'coordinador', 'docente', 'estudiante']}>
+              <Proyectos />
+            </PrivateRoute>
+          } />
+
+          <Route path="/CrearProyecto" element={
+            <PrivateRoute allowedRoles={['administrador', 'coordinador', 'docente']}>
+              <CrearProyecto />
+            </PrivateRoute>
+          } />
+
+          <Route path="/EditarProyecto/:titulo/:id" element={
+            <PrivateRoute allowedRoles={['administrador', 'coordinador', 'docente','estudiante']}>
+              <EditarProyecto />
+            </PrivateRoute>
+          } />
+
+          <Route path="/VerProyecto/:titulo/:id" element={
+            <PrivateRoute allowedRoles={['administrador', 'coordinador', 'docente', 'estudiante']}>
+              <VerProyecto />
+            </PrivateRoute>
+          } />
+        </Route>
+
         <Route path="*" element={<h2 style={{ textAlign: "center" }}>404 - Página no encontrada</h2>} />
       </Routes>
     </BrowserRouter>
