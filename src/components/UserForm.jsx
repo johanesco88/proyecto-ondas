@@ -3,6 +3,10 @@ import { useState, useEffect } from "react";
 import './CSS/UserForm.css';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { auth, db } from '../services/firebase'; 
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc, updateDoc } from 'firebase/firestore';
+
 
 const UserForm = ({ onSubmit, initialData = {}, isEditing }) => {
   const [formData, setFormData] = useState({

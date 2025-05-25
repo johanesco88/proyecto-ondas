@@ -15,7 +15,7 @@ export const registrarUsuario = async (email, password, userData) => {
     });
 
     // Guarda los datos adicionales en Firestore
-    const userRef = doc(db, "usuarios", user.uid); // Guardamos los datos del usuario usando su UID
+    const userRef = doc(db, "usuarios", user.uid);
     await setDoc(userRef, {
       nombres: userData.nombres,
       apellidos: userData.apellidos,
@@ -23,7 +23,7 @@ export const registrarUsuario = async (email, password, userData) => {
       correo: userData.correo,
       rol: userData.rol,
       institucion: userData.institucion,
-      grado: userData.grado, // Solo si el rol es 'estudiante'
+      grado: userData.grado, 
       creadoEn: new Date(),
     });
 
