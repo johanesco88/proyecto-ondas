@@ -38,14 +38,20 @@ const VerProyecto = () => {
   }
 
   const obtenerNombreEstudiante = (id) => {
-  const usuario = usuarios.find((u) => u.id === id);
-  return usuario ? `${usuario.nombres} ${usuario.apellidos}` : "Desconocido";
-};
+    const usuario = usuarios.find((u) => u.id === id);
+    return usuario ? `${usuario.nombres} ${usuario.apellidos}` : "Desconocido";
+  };
 
-const obtenerDescripcionObjetivo = (id) => {
-  const objetivo = proyecto?.objetivos?.find((o) => o.id === id);
-  return objetivo ? objetivo.descripcion : "Objetivo no encontrado";
-};
+  const obtenerDescripcionObjetivo = (id) => {
+    const objetivo = proyecto?.objetivos?.find((o) => o.id === id);
+    return objetivo ? objetivo.descripcion : "Objetivo no encontrado";
+  };
+
+  const obtenerNombreDocente = (id) => {
+    const docente = usuarios.find((u) => u.id === id);
+    return docente ? `${docente.nombres} ${docente.apellidos}` : "Docente no asignado";
+  };
+
 
   return (
     <div className="proyecto-informe">
@@ -56,15 +62,23 @@ const obtenerDescripcionObjetivo = (id) => {
         <p className="detalle-item"><strong>Cronograma:</strong> {proyecto.cronograma}</p>
         <p className="detalle-item"><strong>Presupuesto:</strong> ${proyecto.presupuesto}</p>
         <p className="detalle-item"><strong>Institución:</strong> {proyecto.institucion}</p>
-        <p className="detalle-item"><strong>Docente:</strong> {proyecto.docenteId}</p>
+        <p className="detalle-item">
+          <strong>Docente:</strong> {obtenerNombreDocente(proyecto.docenteId)}
+        </p>
 
         <p className="detalle-item">
           <strong>Integrantes:</strong>
           <ul className="lista-integrantes">
-            {proyecto.integrantes?.map((i, idx) => (
-              <li className="item-integrante" key={idx}>{i.nombre}</li>
-            ))}
+            {proyecto.integrantes?.map((integrante, idx) => {
+              const usuario = usuarios.find(u => u.id === integrante.idUsuario);
+              return (
+                <li className="item-integrante" key={idx}>
+                  {usuario ? `${usuario.nombres} ${usuario.apellidos}` : "Integrante no encontrado"}
+                </li>
+              );
+            })}
           </ul>
+
         </p>
 
         <p className="detalle-item">
@@ -81,13 +95,13 @@ const obtenerDescripcionObjetivo = (id) => {
           <ul className="lista-estados">
             {proyecto.avances?.map((a, idx) => (
               <li className="item-estado" key={idx}>
-                  <strong>Por:</strong> {obtenerNombreEstudiante(a.estudianteId)}<br />
-                  <strong>Objetivo:</strong> {obtenerDescripcionObjetivo(a.objetivoId)}<br />
-                  <strong>Descripción:</strong> {a.descripcion}<br />
-                  <strong>Fecha:</strong> {new Date(a.fecha).toLocaleString()}<br />
-                  {a.archivoUrl && (
-                    <span>⎙ <a href={a.archivoUrl} target="_blank" rel="noopener noreferrer">Ver archivo</a></span>
-                  )}
+                <strong>Por:</strong> {obtenerNombreEstudiante(a.estudianteId)}<br />
+                <strong>Objetivo:</strong> {obtenerDescripcionObjetivo(a.objetivoId)}<br />
+                <strong>Descripción:</strong> {a.descripcion}<br />
+                <strong>Fecha:</strong> {new Date(a.fecha).toLocaleString()}<br />
+                {a.archivoUrl && (
+                  <span>⎙ <a href={a.archivoUrl} target="_blank" rel="noopener noreferrer">Ver archivo</a></span>
+                )}
               </li>
             ))}
           </ul>

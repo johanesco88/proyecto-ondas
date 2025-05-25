@@ -21,7 +21,8 @@ const CrearProyecto = () => {
     integrantes: [],
     objetivos: [],
     avances: [],
-    historialEstados: []
+    historialEstados: [],
+    estadoActual:"Formulacion"
   });
 
   // Estados para los campos adicionales
@@ -56,34 +57,24 @@ const CrearProyecto = () => {
   }, []);
 
   // Funciones para agregar elementos
-
-  //  const agregarIntegrante = () => {
-  //   const usuario = usuarios.find((u) => u.id === nuevoIntegrante);
-  //   if (!nuevoIntegrante.trim()) return;
-  //   const nuevos = [...(nuevoProyecto.integrantes || []), {
-  //     idUsuario: usuario.id,
-  //     nombres: usuario.nombres,
-  //     apellidos: usuario.apellidos
-  //   }];
-  //   setNuevoProyecto({
-  //     ...nuevoProyecto,
-  //     integrantes: [...nuevoProyecto.integrantes, nuevos],
-  //   });
-  //   setNuevoIntegrante("");
-  // };
-
   const agregarIntegrante = () => {
-    if (!nuevoIntegrante.trim()) return;
+    const usuario = usuarios.find((u) => u.id === nuevoIntegrante);
+    if (!usuario) return;
+
     const nuevo = {
-      idUsuario: Date.now().toString(),
-      nombre: nuevoIntegrante,
+      idUsuario: usuario.id,
+      nombres: usuario.nombres,
+      apellidos: usuario.apellidos,
     };
+
     setNuevoProyecto({
       ...nuevoProyecto,
       integrantes: [...nuevoProyecto.integrantes, nuevo],
     });
+
     setNuevoIntegrante("");
   };
+
 
 
   const agregarObjetivo = () => {
@@ -97,22 +88,6 @@ const CrearProyecto = () => {
     setNuevoObjetivo("");
   };
 
-  // const agregarAvance = () => {
-  //   if (!nuevoAvance.objetivoId || !nuevoAvance.descripcion || !nuevoAvance.estudianteId) {
-  //     alert("Por favor completa todos los campos del avance");
-  //     return;
-  //   }
-
-  //   const nuevosAvances = [...nuevoProyecto.avances, {
-  //     id: Date.now().toString(),
-  //     objetivoId: nuevoAvance.objetivoId,
-  //     descripcion: nuevoAvance.descripcion,
-  //     estudianteId: nuevoAvance.estudianteId,
-  //     fecha: new Date().toISOString()
-  //   }];
-  //   setNuevoProyecto({ ...nuevoProyecto, avances: nuevosAvances });
-  //   setNuevoAvance({ objetivoId: "", descripcion: "", estudianteId: "" });
-  // };
 
   const agregarEstado = () => {
     if (!nuevoEstado.estado.trim()) return;
@@ -150,7 +125,8 @@ const CrearProyecto = () => {
         integrantes: [],
         objetivos: [],
         avances: [],
-        historialEstados: []
+        historialEstados: [],
+        estadoActual:"Formulacion"
       });
 
       alert("Proyecto creado exitosamente!");
@@ -237,15 +213,24 @@ const CrearProyecto = () => {
             setNuevoProyecto({ ...nuevoProyecto, institucion: e.target.value })
           }
         />
-        <input
+        <h3 className="Subtitulos">Docente Encargado</h3>
+        <select
           className="proyecto-input-lista"
-          type="text"
-          placeholder="Docente Encargado"
           value={nuevoProyecto.docenteId}
           onChange={(e) =>
             setNuevoProyecto({ ...nuevoProyecto, docenteId: e.target.value })
           }
-        />
+        >
+          <option value="">-- Selecciona docente --</option>
+          {usuarios
+            .filter((u) => u.rol === "docente")
+            .map((u) => (
+              <option key={u.id} value={u.id}>
+                {u.nombres} {u.apellidos}
+              </option>
+            ))}
+        </select>
+
         <textarea
           className="proyecto-input-lista"
           placeholder="Descripción del Proyecto"
@@ -259,7 +244,7 @@ const CrearProyecto = () => {
         <ul className="proyecto-input-lista">
           {nuevoProyecto.integrantes.map((i, idx) => (
             <li key={idx}>
-              {i.nombres}
+              {i.nombres}  {i.apellidos}
               <button className="BotonEliminar" type="button" onClick={() => eliminarIntegrante(i.idUsuario)}>✘</button>
             </li>
           ))}
@@ -278,24 +263,7 @@ const CrearProyecto = () => {
 
         <button className="BotonAgregar" onClick={agregarIntegrante}>Agregar integrante</button>
 
-        {/* <h3 className="Subtitulos">Integrantes</h3>
-        <ul className="proyecto-input-lista">
-          {nuevoProyecto.integrantes.map((i, idx) => (
-            <li key={idx}>
-              {i.nombre}
-              <button className="BotonEliminar" type="button" onClick={() => eliminarIntegrante(i.idUsuario)}>✘</button>
-            </li>
-          ))}
-        </ul>
-
-        <input
-          className="proyecto-input-lista"
-          type="text"
-          placeholder="Nombre del nuevo integrante"
-          value={nuevoIntegrante}
-          onChange={(e) => setNuevoIntegrante(e.target.value)}
-        />
-        <button className="BotonAgregar" type="button" onClick={agregarIntegrante}>Agregar integrante</button> */}
+      
 
 
         <h3 className="Subtitulos">Objetivos</h3>
@@ -323,7 +291,7 @@ const CrearProyecto = () => {
         />
         <button className="BotonAgregar" type="button" onClick={agregarObjetivo}>Agregar objetivo</button>
 
-        <h3 className="Subtitulos">Estado</h3>
+        {/* <h3 className="Subtitulos">Estado</h3>
         <ul className="proyecto-input-lista">
           {nuevoProyecto.historialEstados.map((e, idx) => (
             <li key={idx}>
@@ -349,7 +317,7 @@ const CrearProyecto = () => {
           value={nuevoEstado.observaciones}
           onChange={(e) => setNuevoEstado({ ...nuevoEstado, observaciones: e.target.value })}
         />
-        <button className="BotonAgregar" type="button" onClick={agregarEstado}>Agregar estado</button>
+        <button className="BotonAgregar" type="button" onClick={agregarEstado}>Agregar estado</button> */}
 
         <div style={{ marginTop: '20px' }}>
           <button className="BotonesEditarCrear" onClick={handleCrearProyecto} >

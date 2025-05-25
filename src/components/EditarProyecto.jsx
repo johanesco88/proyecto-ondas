@@ -20,13 +20,14 @@ const EditarProyecto = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [resetSubida, setResetSubida] = useState(false);
 
-  
-  
+
+
+
   useEffect(() => {
-  if (resetSubida) {
-    setResetSubida(false);
-  }
-}, [resetSubida]);
+    if (resetSubida) {
+      setResetSubida(false);
+    }
+  }, [resetSubida]);
 
   useEffect(() => {
     const fetchProyecto = async () => {
@@ -104,16 +105,21 @@ const EditarProyecto = () => {
 
   const agregarEstado = () => {
     if (!nuevoEstado.estado.trim()) return;
+
     const nuevo = {
       ...nuevoEstado,
       fecha: new Date().toISOString(),
     };
+
     setProyecto({
       ...proyecto,
-      historialEstados: [...proyecto.historialEstados, nuevo],
+      historialEstados: [...(proyecto.historialEstados || []), nuevo],
+      estadoActual: nuevoEstado.estado,
     });
+
     setNuevoEstado({ estado: "", observaciones: "" });
   };
+
 
   const handleActualizar = async () => {
     try {
@@ -155,18 +161,23 @@ const EditarProyecto = () => {
     setArchivoUrl("");
 
     setArchivoUrl("");
-  setResetSubida(true);
+    setResetSubida(true);
   };
 
   const obtenerNombreEstudiante = (id) => {
     const usuario = usuarios.find((u) => u.id === id);
-    return usuario ? usuario.nombre : "Desconocido";
+    return usuario ? `${usuario.nombres} ${usuario.apellidos}` : "Desconocido";
   };
+
 
   const obtenerDescripcionObjetivo = (id) => {
     const objetivo = proyecto?.objetivos?.find((o) => o.id === id);
     return objetivo ? objetivo.descripcion : "Objetivo no encontrado";
   };
+
+  const docenteAsignado = usuarios.find((usuario) => usuario.id === proyecto.docenteId);
+  const nombreDocente = docenteAsignado ? `${docenteAsignado.nombres} ${docenteAsignado.apellidos}` : "No asignado";
+
 
 
   return (
@@ -180,7 +191,7 @@ const EditarProyecto = () => {
         <input className="proyecto-input-lista" type="number" name="presupuesto" placeholder="Presupuesto" value={proyecto.presupuesto} onChange={handleChange} />
         <input className="proyecto-input-lista" type="text" name="institucion" placeholder="Institución" value={proyecto.institucion} onChange={handleChange} />
         <textarea className="proyecto-input-lista" name="observaciones" placeholder="Descripción" value={proyecto.observaciones} onChange={handleChange} />
-        <p><strong>Docente:</strong> {proyecto.docenteId}</p>
+        <p><strong>Docente:</strong> {nombreDocente}</p>
 
         <h3 className="Subtitulos">Integrantes</h3>
         <ul className="proyecto-input-lista">
@@ -236,13 +247,19 @@ const EditarProyecto = () => {
             </li>
           ))}
         </ul>
-        <input
+        <select
           className="proyecto-input-lista"
-          type="text"
-          placeholder="Nuevo estado"
           value={nuevoEstado.estado}
           onChange={(e) => setNuevoEstado({ ...nuevoEstado, estado: e.target.value })}
-        />
+        >
+          <option value="">-- Seleccionar estado --</option>
+          <option value="Formulación">Formulación</option>
+          <option value="Evaluación">Evaluación</option>
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+          <option value="Finalizado">Finalizado</option>
+        </select>
+
         <textarea
           className="proyecto-input-lista"
           placeholder="Observaciones del estado"
@@ -250,19 +267,19 @@ const EditarProyecto = () => {
           onChange={(e) => setNuevoEstado({ ...nuevoEstado, observaciones: e.target.value })}
         />
         <button className="BotonAgregar" type="button" onClick={agregarEstado}>Agregar estado</button>
-       
+
         <h3 className="Subtitulos">Avances del Proyecto</h3>
         <ul className="proyecto-input-lista">
           {(proyecto.avances || []).map((a, idx) => (
             <li key={idx}>
               <div className="ContenedorContenidoListas">
-                <strong>Objetivo:</strong> {obtenerDescripcionObjetivo(a.objetivoId)}<br /> 
+                <strong>Objetivo:</strong> {obtenerDescripcionObjetivo(a.objetivoId)}<br />
                 <strong>Avance:</strong> {a.descripcion}<br />
                 <strong>Por:</strong> {obtenerNombreEstudiante(a.estudianteId)}<br />
                 <strong>Fecha:</strong> {new Date(a.fecha).toLocaleString()}<br />
-              {a.archivoUrl && (
-                <span>⎙ <a href={a.archivoUrl} target="_blank" rel="noopener noreferrer">Ver archivo</a></span>
-              )}
+                {a.archivoUrl && (
+                  <span>⎙ <a href={a.archivoUrl} target="_blank" rel="noopener noreferrer">Ver archivo</a></span>
+                )}
               </div>
               <button className="BotonEliminar" type="button" onClick={() => eliminarAvance(idx)}>✘</button>
             </li>

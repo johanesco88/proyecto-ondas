@@ -1,6 +1,6 @@
 // src/components/Proyectos.jsx
 import React, { useState, useEffect } from "react";
-import { crearProyecto, obtenerProyectos, actualizarProyecto, eliminarProyecto } from "../services/proyectoService";
+import { crearProyecto, obtenerProyectos, actualizarProyecto, eliminarProyecto, obtenerUsuarios } from "../services/proyectoService";
 import "./CSS/Proyectos.css";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
@@ -22,25 +22,29 @@ const Proyectos = () => {
     avances: [],
     historialEstados: []
   });
+  const [docentes, setDocentes] = useState([]);
+
 
   const navigate = useNavigate();
 
-  // Obtener proyectos
   useEffect(() => {
-    const fetchProyectos = async () => {
+    const fetchDatos = async () => {
       const proyectosData = await obtenerProyectos();
+      const usuariosData = await obtenerUsuarios();
+      const soloDocentes = usuariosData.filter(u => u.rol === "docente");
+
       setProyectos(proyectosData);
+      setDocentes(soloDocentes);
     };
 
-    fetchProyectos();
+    fetchDatos();
   }, []);
-
   // Crear proyecto
   const handleCrearProyecto = async () => {
     try {
       const id = await crearProyecto(nuevoProyecto);
       setProyectos([...proyectos, { ...nuevoProyecto, id }]);
-      setNuevoProyecto({ titulo: "", area: "", cronograma: "", presupuesto: 0, institucion: "", docenteId: "", observaciones: "", integrantes: [], objetivos: [], avances: [], historialEstados: [] });
+      setNuevoProyecto({ titulo: "", area: "", cronograma: "", presupuesto: 0, institucion: "", docenteId: "", observaciones: "", integrantes: [], objetivos: [], avances: [], historialEstados: [], estadoActual: "Formulacion" });
     } catch (error) {
       console.error("Error al crear proyecto:", error);
     }
@@ -67,7 +71,15 @@ const Proyectos = () => {
     }
   };
 
-  if (!proyectos) { 
+  const obtenerNombreDocente = (docenteId) => {
+    const docente = docentes.find(d => d.id === docenteId);
+    return docente ? `${docente.nombres} ${docente.apellidos}` : "Docente no encontrado";
+  };
+
+
+
+
+  if (!proyectos) {
     return (
       <Box className="Cargando">
         <CircularProgress />
@@ -86,7 +98,10 @@ const Proyectos = () => {
             <h3 className="proyecto-item-titulo">{proyecto.titulo}</h3>
             <p className="proyecto-item-titulo">Área: {proyecto.area}</p>
             <p className="proyecto-item-titulo">Institución Encargada: {proyecto.institucion}</p>
-            <p className="proyecto-item-titulo">Docente Encargado: {proyecto.docenteId}</p>
+            <p className="proyecto-item-titulo">
+              Docente Encargado: {obtenerNombreDocente(proyecto.docenteId)}
+            </p>
+            <p className="proyecto-item-titulo">Estado Actual: {proyecto.estadoActual}</p>
             <button
               className="proyecto-actualizar"
               onClick={() => navigate(`/EditarProyecto/${proyecto.titulo}/${proyecto.id}`)}
