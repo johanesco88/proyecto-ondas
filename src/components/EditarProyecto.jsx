@@ -18,7 +18,15 @@ const EditarProyecto = () => {
   const [archivoUrl, setArchivoUrl] = useState("");
   const [nuevoAvance, setNuevoAvance] = useState({ objetivoId: "", descripcion: "", estudianteId: "" });
   const [usuarios, setUsuarios] = useState([]);
+  const [resetSubida, setResetSubida] = useState(false);
 
+  
+  
+  useEffect(() => {
+  if (resetSubida) {
+    setResetSubida(false);
+  }
+}, [resetSubida]);
 
   useEffect(() => {
     const fetchProyecto = async () => {
@@ -87,6 +95,12 @@ const EditarProyecto = () => {
       historialEstados: proyecto.historialEstados.filter((_, i) => i !== idx),
     });
   };
+  const eliminarAvance = (idx) => {
+    setProyecto({
+      ...proyecto,
+      avances: proyecto.avances.filter((_, i) => i !== idx),
+    });
+  };
 
   const agregarEstado = () => {
     if (!nuevoEstado.estado.trim()) return;
@@ -139,6 +153,9 @@ const EditarProyecto = () => {
     // Resetear campos
     setNuevoAvance({ objetivoId: "", descripcion: "", estudianteId: "" });
     setArchivoUrl("");
+
+    setArchivoUrl("");
+  setResetSubida(true);
   };
 
   const obtenerNombreEstudiante = (id) => {
@@ -175,7 +192,7 @@ const EditarProyecto = () => {
           ))}
         </ul>
 
-        <select value={nuevoIntegrante} onChange={(e) => setNuevoIntegrante(e.target.value)}>
+        <select className="proyecto-input-lista" value={nuevoIntegrante} onChange={(e) => setNuevoIntegrante(e.target.value)}>
           <option value="">-- Selecciona estudiante --</option>
           {usuarios
             .filter((u) => u.rol === "estudiante")
@@ -186,17 +203,7 @@ const EditarProyecto = () => {
             ))}
         </select>
 
-        <button onClick={agregarIntegrante}>Agregar integrante</button>
-
-
-        <input
-          className="proyecto-input-lista"
-          type="text"
-          placeholder="Nombre del nuevo integrante"
-          value={nuevoIntegrante}
-          onChange={(e) => setNuevoIntegrante(e.target.value)}
-        />
-        <button className="BotonAgregar" type="button" onClick={agregarIntegrante}>Agregar integrante</button>
+        <button className="BotonAgregar" onClick={agregarIntegrante}>Agregar integrante</button>
 
         <h3 className="Subtitulos">Objetivos</h3>
         <ul className="proyecto-input-lista">
@@ -243,49 +250,38 @@ const EditarProyecto = () => {
           onChange={(e) => setNuevoEstado({ ...nuevoEstado, observaciones: e.target.value })}
         />
         <button className="BotonAgregar" type="button" onClick={agregarEstado}>Agregar estado</button>
-        <h3 className="Subtitulos">Avances</h3>
+       
+        <h3 className="Subtitulos">Avances del Proyecto</h3>
         <ul className="proyecto-input-lista">
           {(proyecto.avances || []).map((a, idx) => (
             <li key={idx}>
               <div className="ContenedorContenidoListas">
-                <strong>Objetivo:</strong> {obtenerDescripcionObjetivo(a.objetivoId)}<br />
-                <strong>Descripción:</strong> {a.descripcion} <br />
-                <strong>Estudiante:</strong> {obtenerNombreEstudiante(a.estudianteId)}<br />
-                <a href={a.archivoUrl} target="_blank" rel="noopener noreferrer">Ver archivo</a> <br />
-                <small>{new Date(a.fecha).toLocaleString()}</small>
-              </div>
-            </li>
-          ))}
-        </ul>
-
-        <h4>Agregar nuevo avance</h4>
-        <h3>Avances del Proyecto</h3>
-        <ul>
-          {(proyecto.avances || []).map((a, idx) => (
-            <li key={idx}>
-              <strong>Objetivo:</strong> {a.objetivoId} |
-              <strong>Avance:</strong> {a.descripcion} |
-              <strong>Por:</strong> {a.estudianteId} |
-              <strong>Fecha:</strong> {a.fecha}
+                <strong>Objetivo:</strong> {obtenerDescripcionObjetivo(a.objetivoId)}<br /> 
+                <strong>Avance:</strong> {a.descripcion}<br />
+                <strong>Por:</strong> {obtenerNombreEstudiante(a.estudianteId)}<br />
+                <strong>Fecha:</strong> {new Date(a.fecha).toLocaleString()}<br />
               {a.archivoUrl && (
-                <span> | <a href={a.archivoUrl} target="_blank" rel="noopener noreferrer">Ver archivo</a></span>
+                <span>⎙ <a href={a.archivoUrl} target="_blank" rel="noopener noreferrer">Ver archivo</a></span>
               )}
+              </div>
+              <button className="BotonEliminar" type="button" onClick={() => eliminarAvance(idx)}>✘</button>
             </li>
           ))}
         </ul>
-        <select value={nuevoAvance.objetivoId} onChange={(e) => setNuevoAvance({ ...nuevoAvance, objetivoId: e.target.value })}>
+        <select className="proyecto-input-lista" value={nuevoAvance.objetivoId} onChange={(e) => setNuevoAvance({ ...nuevoAvance, objetivoId: e.target.value })}>
           <option value="">-- Objetivo --</option>
           {(proyecto.objetivos || []).map((o) => (
             <option key={o.id} value={o.id}>{o.descripcion}</option>
           ))}
         </select>
         <input
+          className="proyecto-input-lista"
           type="text"
           placeholder="Descripción del avance"
           value={nuevoAvance.descripcion}
           onChange={(e) => setNuevoAvance({ ...nuevoAvance, descripcion: e.target.value })}
         />
-        <select value={nuevoAvance.estudianteId} onChange={(e) => setNuevoAvance({ ...nuevoAvance, estudianteId: e.target.value })}>
+        <select className="proyecto-input-lista" value={nuevoAvance.estudianteId} onChange={(e) => setNuevoAvance({ ...nuevoAvance, estudianteId: e.target.value })}>
           <option value="">-- Estudiante --</option>
           {(proyecto.integrantes || []).map((i) => (
             <option key={i.idUsuario} value={i.idUsuario}>{i.nombre}</option>
@@ -293,8 +289,8 @@ const EditarProyecto = () => {
         </select>
 
 
-        <SubirArchivo onUpload={(url) => setArchivoUrl(url)} />
-        <button onClick={agregarAvance}>Agregar avance</button>
+        <SubirArchivo onUpload={(url) => setArchivoUrl(url)} reset={resetSubida} />
+        <button className="BotonAgregar" onClick={agregarAvance}>Agregar avance</button>
 
         <button className="BotonesEditarCrear" onClick={handleActualizar}>Guardar Cambios</button>
         <button className="BotonesEditarCrear" onClick={() => window.history.back()}>Regresar</button>

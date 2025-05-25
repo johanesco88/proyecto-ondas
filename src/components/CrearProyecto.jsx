@@ -56,6 +56,22 @@ const CrearProyecto = () => {
   }, []);
 
   // Funciones para agregar elementos
+
+  //  const agregarIntegrante = () => {
+  //   const usuario = usuarios.find((u) => u.id === nuevoIntegrante);
+  //   if (!nuevoIntegrante.trim()) return;
+  //   const nuevos = [...(nuevoProyecto.integrantes || []), {
+  //     idUsuario: usuario.id,
+  //     nombres: usuario.nombres,
+  //     apellidos: usuario.apellidos
+  //   }];
+  //   setNuevoProyecto({
+  //     ...nuevoProyecto,
+  //     integrantes: [...nuevoProyecto.integrantes, nuevos],
+  //   });
+  //   setNuevoIntegrante("");
+  // };
+
   const agregarIntegrante = () => {
     if (!nuevoIntegrante.trim()) return;
     const nuevo = {
@@ -133,6 +149,7 @@ const CrearProyecto = () => {
         observaciones: "",
         integrantes: [],
         objetivos: [],
+        avances: [],
         historialEstados: []
       });
 
@@ -162,13 +179,13 @@ const CrearProyecto = () => {
     });
   };
 
-    if (!nuevoProyecto) {
-      return (
-        <Box className="Cargando">
-          <CircularProgress />
-        </Box>
-      );
-    }
+  if (!nuevoProyecto) {
+    return (
+      <Box className="Cargando">
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <div className="proyectos-container">
@@ -242,6 +259,29 @@ const CrearProyecto = () => {
         <ul className="proyecto-input-lista">
           {nuevoProyecto.integrantes.map((i, idx) => (
             <li key={idx}>
+              {i.nombres}
+              <button className="BotonEliminar" type="button" onClick={() => eliminarIntegrante(i.idUsuario)}>✘</button>
+            </li>
+          ))}
+        </ul>
+
+        <select className="proyecto-input-lista" value={nuevoIntegrante} onChange={(e) => setNuevoIntegrante(e.target.value)}>
+          <option value="">-- Selecciona estudiante --</option>
+          {usuarios
+            .filter((u) => u.rol === "estudiante")
+            .map((u) => (
+              <option key={u.id} value={u.id}>
+                {u.nombres} {u.apellidos}
+              </option>
+            ))}
+        </select>
+
+        <button className="BotonAgregar" onClick={agregarIntegrante}>Agregar integrante</button>
+
+        {/* <h3 className="Subtitulos">Integrantes</h3>
+        <ul className="proyecto-input-lista">
+          {nuevoProyecto.integrantes.map((i, idx) => (
+            <li key={idx}>
               {i.nombre}
               <button className="BotonEliminar" type="button" onClick={() => eliminarIntegrante(i.idUsuario)}>✘</button>
             </li>
@@ -255,7 +295,7 @@ const CrearProyecto = () => {
           value={nuevoIntegrante}
           onChange={(e) => setNuevoIntegrante(e.target.value)}
         />
-        <button className="BotonAgregar" type="button" onClick={agregarIntegrante}>Agregar integrante</button>
+        <button className="BotonAgregar" type="button" onClick={agregarIntegrante}>Agregar integrante</button> */}
 
 
         <h3 className="Subtitulos">Objetivos</h3>
@@ -299,7 +339,7 @@ const CrearProyecto = () => {
         <input
           className="proyecto-input-lista"
           type="text"
-          placeholder="Estado"
+          placeholder="Estado del proyecto"
           value={nuevoEstado.estado}
           onChange={(e) => setNuevoEstado({ ...nuevoEstado, estado: e.target.value })}
         />

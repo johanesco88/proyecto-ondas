@@ -1,23 +1,30 @@
-// subirArchivo.js
-import React, { useState } from "react";
-import { supabase } from "../supabase/supabaseclient"; // Asegúrate de tener la configuración de Supabase
+import React, { useState, useRef, useEffect } from "react";
+import { supabase } from "../supabase/supabaseclient";
 
-const SubirArchivo = ({ onUpload }) => {
+const SubirArchivo = ({ onUpload, reset }) => {
   const [uploading, setUploading] = useState(false);
+  const [nombreArchivo, setNombreArchivo] = useState("");
+  const fileInputRef = useRef(null);
+
+  const handleFileClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
   const subirArchivo = async (e) => {
     const archivo = e.target.files[0];
     if (!archivo) return;
 
+    setNombreArchivo(archivo.name);
     setUploading(true);
 
-    const nombreArchivo = `${Date.now()}_${archivo.name}`;
-    const { data, error } = await supabase.storage
-      .from("avances") 
-      .upload(nombreArchivo, archivo);
+    const nombreUnico = `${Date.now()}_${archivo.name}`;
+    const { error } = await supabase.storage
+      .from("avances")
+      .upload(nombreUnico, archivo);
 
     if (error) {
-      console.error("Error al subir archivo:", error);
       alert("No se pudo subir el archivo");
       setUploading(false);
       return;
@@ -25,18 +32,34 @@ const SubirArchivo = ({ onUpload }) => {
 
     const { data: urlData } = await supabase.storage
       .from("avances")
-      .getPublicUrl(nombreArchivo);
+      .getPublicUrl(nombreUnico);
 
-    onUpload(urlData.publicUrl); // pasa la URL al padre
+    onUpload(urlData.publicUrl);
     setUploading(false);
   };
 
+  useEffect(() => {
+    if (reset) {
+      setNombreArchivo("");
+      if (fileInputRef.current) fileInputRef.current.value = null;
+    }
+  }, [reset]);
+
   return (
     <div>
-      <input type="file" onChange={subirArchivo} disabled={uploading} />
-      {uploading && <p>Subiendo archivo...</p>}
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={subirArchivo}
+        style={{ display: "none" }}
+      />
+      <button onClick={handleFileClick} className="BotonAgregar" disabled={uploading}>
+        {uploading ? nombreArchivo : (nombreArchivo || "Subir archivo")}
+      </button>
     </div>
   );
 };
 
 export default SubirArchivo;
+
+

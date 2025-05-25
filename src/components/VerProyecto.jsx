@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 const VerProyecto = () => {
   const { id } = useParams();
   const [proyecto, setProyecto] = useState(null);
+  const [usuarios, setUsuarios] = useState([]);
 
 
   useEffect(() => {
@@ -27,8 +28,8 @@ const VerProyecto = () => {
     fetchUsuarios();
   }, [id]);
 
-  
-    if (!proyecto) {
+
+  if (!proyecto) {
     return (
       <Box className="Cargando">
         <CircularProgress />
@@ -36,49 +37,76 @@ const VerProyecto = () => {
     );
   }
 
+  const obtenerNombreEstudiante = (id) => {
+  const usuario = usuarios.find((u) => u.id === id);
+  return usuario ? `${usuario.nombres} ${usuario.apellidos}` : "Desconocido";
+};
+
+const obtenerDescripcionObjetivo = (id) => {
+  const objetivo = proyecto?.objetivos?.find((o) => o.id === id);
+  return objetivo ? objetivo.descripcion : "Objetivo no encontrado";
+};
+
   return (
     <div className="proyecto-informe">
-  <h2 className="proyecto-titulo">{proyecto.titulo}</h2>
+      <h2 className="proyecto-titulo">{proyecto.titulo}</h2>
 
-  <div className="proyecto-detalles">
-    <p className="detalle-item"><strong>Área:</strong> {proyecto.area}</p>
-    <p className="detalle-item"><strong>Cronograma:</strong> {proyecto.cronograma}</p>
-    <p className="detalle-item"><strong>Presupuesto:</strong> ${proyecto.presupuesto}</p>
-    <p className="detalle-item"><strong>Institución:</strong> {proyecto.institucion}</p>
-    <p className="detalle-item"><strong>Docente:</strong> {proyecto.docenteId}</p>
+      <div className="proyecto-detalles">
+        <p className="detalle-item"><strong>Área:</strong> {proyecto.area}</p>
+        <p className="detalle-item"><strong>Cronograma:</strong> {proyecto.cronograma}</p>
+        <p className="detalle-item"><strong>Presupuesto:</strong> ${proyecto.presupuesto}</p>
+        <p className="detalle-item"><strong>Institución:</strong> {proyecto.institucion}</p>
+        <p className="detalle-item"><strong>Docente:</strong> {proyecto.docenteId}</p>
 
-    <p className="detalle-item">
-      <strong>Integrantes:</strong>
-      <ul className="lista-integrantes">
-        {proyecto.integrantes?.map((i, idx) => (
-          <li className="item-integrante" key={idx}>{i.nombre}</li>
-        ))}
-      </ul>
-    </p>
+        <p className="detalle-item">
+          <strong>Integrantes:</strong>
+          <ul className="lista-integrantes">
+            {proyecto.integrantes?.map((i, idx) => (
+              <li className="item-integrante" key={idx}>{i.nombre}</li>
+            ))}
+          </ul>
+        </p>
 
-    <p className="detalle-item">
-      <strong>Objetivos:</strong>
-      <ul className="lista-objetivos">
-        {proyecto.objetivos?.map((o, idx) => (
-          <li className="item-objetivo" key={idx}>{o.descripcion}</li>
-        ))}
-      </ul>
-    </p>
+        <p className="detalle-item">
+          <strong>Objetivos:</strong>
+          <ul className="lista-objetivos">
+            {proyecto.objetivos?.map((o, idx) => (
+              <li className="item-objetivo" key={idx}>{o.descripcion}</li>
+            ))}
+          </ul>
+        </p>
 
-    <p className="detalle-item">
-      <strong>Estado(s):</strong>
-      <ul className="lista-estados">
-        {proyecto.historialEstados?.map((estado, idx) => (
-          <li className="item-estado" key={idx}>
-            <strong>{estado.estado}</strong> - {new Date(estado.fecha).toLocaleDateString()}
-            <br />
-            <em>{estado.observaciones}</em>
-          </li>
-        ))}
-      </ul>
-    </p>
-  </div>
-</div>
+        <p className="detalle-item">
+          <strong>Avances del Proyecto:</strong>
+          <ul className="lista-estados">
+            {proyecto.avances?.map((a, idx) => (
+              <li className="item-estado" key={idx}>
+                  <strong>Por:</strong> {obtenerNombreEstudiante(a.estudianteId)}<br />
+                  <strong>Objetivo:</strong> {obtenerDescripcionObjetivo(a.objetivoId)}<br />
+                  <strong>Descripción:</strong> {a.descripcion}<br />
+                  <strong>Fecha:</strong> {new Date(a.fecha).toLocaleString()}<br />
+                  {a.archivoUrl && (
+                    <span>⎙ <a href={a.archivoUrl} target="_blank" rel="noopener noreferrer">Ver archivo</a></span>
+                  )}
+              </li>
+            ))}
+          </ul>
+        </p>
+
+        <p className="detalle-item">
+          <strong>Estado(s):</strong>
+          <ul className="lista-estados">
+            {proyecto.historialEstados?.map((estado, idx) => (
+              <li className="item-estado" key={idx}>
+                <strong>{estado.estado}</strong> - {new Date(estado.fecha).toLocaleDateString()}
+                <br />
+                <em>{estado.observaciones}</em>
+              </li>
+            ))}
+          </ul>
+        </p>
+      </div>
+    </div>
 
   );
 };

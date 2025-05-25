@@ -19,6 +19,7 @@ const Proyectos = () => {
     observaciones: "",
     integrantes: [],
     objetivos: [],
+    avances: [],
     historialEstados: []
   });
 
