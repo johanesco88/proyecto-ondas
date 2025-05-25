@@ -80,7 +80,9 @@
 
 .user-form button {
   width: 100%;
-  padding: 1.3rem;
+  padding: 1rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
   background: transparent;
   color: white;
   border: 1px solid var(--color-10);
@@ -117,4 +119,30 @@
 
 .user-form button:active {
   transform: translateY(-1px) scale(1.01);
+}
+
+.opciones{
+  color: #2d3748;
+}
+
+@media (prefers-color-scheme: dark) {
+  .user-form-container {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+  }
+  
+  .user-form {
+    background: rgba(45, 55, 72, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .user-form input,
+  .user-form select {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+  }
+  
+  .user-form input::placeholder {
+    color: #a0aec0;
+  }
 }

@@ -213,7 +213,6 @@
   transition: all 0.3s ease;
 }
 
-
 /* Botones del proyecto */
 .BotonesEditarCrear {
   width: 100%;
@@ -230,7 +229,7 @@
   letter-spacing: 1.5px;
   position: relative;
   overflow: hidden;
-  margin-bottom: 1rem;
+  margin: 1rem;
   font-family: inherit;
 }
 

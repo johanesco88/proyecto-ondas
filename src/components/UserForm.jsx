@@ -72,9 +72,9 @@ const UserForm = ({ onSubmit, initialData = {}, isEditing }) => {
       <input name="contraseña" placeholder="Contraseña" type="password" value={formData.contraseña} onChange={handleChange} required />
       
       <select name="rol" value={formData.rol} onChange={handleChange} required>
-        <option value="estudiante">Estudiante</option>
-        <option value="docente">Docente</option>
-        <option value="coordinador">Coordinador</option>
+        <option className="opciones" value="estudiante">Estudiante</option>
+        <option className="opciones" value="docente">Docente</option>
+        <option className="opciones" value="coordinador">Coordinador</option>
       </select>
       
       <input name="institucion" placeholder="Institución" value={formData.institucion} onChange={handleChange} required />

@@ -191,7 +191,24 @@ const EditarProyecto = () => {
         <input className="proyecto-input-lista" type="number" name="presupuesto" placeholder="Presupuesto" value={proyecto.presupuesto} onChange={handleChange} />
         <input className="proyecto-input-lista" type="text" name="institucion" placeholder="Institución" value={proyecto.institucion} onChange={handleChange} />
         <textarea className="proyecto-input-lista" name="observaciones" placeholder="Descripción" value={proyecto.observaciones} onChange={handleChange} />
-        <p><strong>Docente:</strong> {nombreDocente}</p>
+       
+       <h3 className="Subtitulos">Docente Encargado</h3>
+        <select
+          className="proyecto-input-lista"
+          value={proyecto.docenteId}
+          onChange={(e) =>
+            setProyecto({ ...proyecto, docenteId: e.target.value })
+          }
+        >
+          <option value="">-- Selecciona docente --</option>
+          {usuarios
+            .filter((u) => u.rol === "docente")
+            .map((u) => (
+              <option key={u.id} value={u.id}>
+                {u.nombres} {u.apellidos}
+              </option>
+            ))}
+        </select>
 
         <h3 className="Subtitulos">Integrantes</h3>
         <ul className="proyecto-input-lista">

@@ -213,6 +213,16 @@ const CrearProyecto = () => {
             setNuevoProyecto({ ...nuevoProyecto, institucion: e.target.value })
           }
         />
+
+        <textarea
+          className="proyecto-input-lista"
+          placeholder="Descripción del Proyecto"
+          value={nuevoProyecto.observaciones}
+          onChange={(e) =>
+            setNuevoProyecto({ ...nuevoProyecto, observaciones: e.target.value })
+          }
+        />
+
         <h3 className="Subtitulos">Docente Encargado</h3>
         <select
           className="proyecto-input-lista"
@@ -230,15 +240,6 @@ const CrearProyecto = () => {
               </option>
             ))}
         </select>
-
-        <textarea
-          className="proyecto-input-lista"
-          placeholder="Descripción del Proyecto"
-          value={nuevoProyecto.observaciones}
-          onChange={(e) =>
-            setNuevoProyecto({ ...nuevoProyecto, observaciones: e.target.value })
-          }
-        />
 
         <h3 className="Subtitulos">Integrantes</h3>
         <ul className="proyecto-input-lista">
@@ -319,7 +320,7 @@ const CrearProyecto = () => {
         />
         <button className="BotonAgregar" type="button" onClick={agregarEstado}>Agregar estado</button> */}
 
-        <div style={{ marginTop: '20px' }}>
+        <div>
           <button className="BotonesEditarCrear" onClick={handleCrearProyecto} >
             Crear Proyecto
           </button>
