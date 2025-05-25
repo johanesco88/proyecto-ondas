@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,7 +12,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './CSS/MenuNavegacion.css';
 
 
@@ -25,6 +25,17 @@ const pages = [
     { label: 'Usuarios', path: '/Usuarios' },
     { label: 'Proyectos', path: '/Proyectos' }
 ];
+
+const handleLogout = async () => {
+    const auth = getAuth();
+    try {
+        await signOut(auth);
+        // Aquí puedes hacer algo después de cerrar sesión,
+        // como redireccionar al login (si no usas Link)
+    } catch (error) {
+        console.error("Error cerrando sesión:", error);
+    }
+};
 
 function stringToColor(string) {
     let hash = 0;
@@ -52,6 +63,18 @@ function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [user, setUser] = useState(null);
+    const navigate = useNavigate(); // <-- aquí
+
+    const handleLogout = async () => {
+        const auth = getAuth();
+        try {
+            await signOut(auth);
+            navigate('/login'); // redirigir al login después de cerrar sesión
+        } catch (error) {
+            console.error("Error cerrando sesión:", error);
+        }
+    };
+
 
     useEffect(() => {
         const auth = getAuth();
@@ -160,15 +183,29 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem
-                                    key={setting.label}
-                                    component={Link}
-                                    to={setting.path}
-                                    onClick={handleCloseUserMenu}
-                                >
-                                    <Typography textAlign="center">{setting.label}</Typography>
-                                </MenuItem>
+                                setting.label === 'Cerrar sesión' ? (
+                                    <MenuItem
+                                        key={setting.label}
+                                        onClick={() => {
+                                            handleCloseUserMenu();
+                                            handleLogout();
+                                        }}
+                                        sx={{ cursor: 'pointer' }}
+                                    >
+                                        <Typography textAlign="center">{setting.label}</Typography>
+                                    </MenuItem>
+                                ) : (
+                                    <MenuItem
+                                        key={setting.label}
+                                        component={Link}
+                                        to={setting.path}
+                                        onClick={handleCloseUserMenu}
+                                    >
+                                        <Typography textAlign="center">{setting.label}</Typography>
+                                    </MenuItem>
+                                )
                             ))}
+
                         </Menu>
                     </Box>
                 </Toolbar>
@@ -182,7 +219,7 @@ export const MenuNavegacion = () => {
     return (
         <div>
             <ResponsiveAppBar />
-            
+
         </div>
     );
 };
