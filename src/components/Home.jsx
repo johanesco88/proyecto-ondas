@@ -136,7 +136,7 @@ export const Home = () => {
 
             {/* Credenciales */}
             <footer className="Credenciales">
-                Plataforma desarrollada por [Tu Nombre o Institución] - 2025. Todos los derechos reservados.
+                Plataforma desarrollada por [Alejandro Antury, Julio Torres, Johan Escobar ] - 2025. Todos los derechos reservados.
             </footer>
 
         </div>

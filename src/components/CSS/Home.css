@@ -106,12 +106,44 @@
 }
 
 .RedesSociales a {
-  color: #444;
-  transition: color 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .RedesSociales a:hover {
-  color: #007bff;
+  transform: translateY(-5px);
+}
+
+/* Colores individuales por red */
+.RedesSociales .fa-facebook-square {
+  color: #3b5998;
+}
+
+.RedesSociales .fa-facebook-square:hover {
+  color: #2d4373;
+}
+
+.RedesSociales .fa-instagram {
+  color: #e1306c;
+}
+
+.RedesSociales .fa-instagram:hover {
+  color: #c82361;
+}
+
+.RedesSociales .fa-youtube {
+  color: #ff0000;
+}
+
+.RedesSociales .fa-youtube:hover {
+  color: #cc0000;
+}
+
+.RedesSociales .fa-tiktok {
+  color: #890def;
+}
+
+.RedesSociales .fa-tiktok:hover {
+  color: #6500f2;
 }
 
 /* Credenciales */
