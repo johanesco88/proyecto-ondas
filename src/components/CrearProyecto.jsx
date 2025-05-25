@@ -292,34 +292,6 @@ const CrearProyecto = () => {
         />
         <button className="BotonAgregar" type="button" onClick={agregarObjetivo}>Agregar objetivo</button>
 
-        {/* <h3 className="Subtitulos">Estado</h3>
-        <ul className="proyecto-input-lista">
-          {nuevoProyecto.historialEstados.map((e, idx) => (
-            <li key={idx}>
-              <div className="ContenedorContenidoListas">
-                <strong>{e.estado} </strong> - {new Date(e.fecha).toLocaleDateString()}
-                <br />
-                <em> {e.observaciones}</em>
-              </div>
-              <button className="BotonEliminar" type="button" onClick={() => eliminarEstado(idx)}>✘</button>
-            </li>
-          ))}
-        </ul>
-        <input
-          className="proyecto-input-lista"
-          type="text"
-          placeholder="Estado del proyecto"
-          value={nuevoEstado.estado}
-          onChange={(e) => setNuevoEstado({ ...nuevoEstado, estado: e.target.value })}
-        />
-        <textarea
-          className="proyecto-input-lista"
-          placeholder="Observaciones del estado"
-          value={nuevoEstado.observaciones}
-          onChange={(e) => setNuevoEstado({ ...nuevoEstado, observaciones: e.target.value })}
-        />
-        <button className="BotonAgregar" type="button" onClick={agregarEstado}>Agregar estado</button> */}
-
         <div>
           <button className="BotonesEditarCrear" onClick={handleCrearProyecto} >
             Crear Proyecto

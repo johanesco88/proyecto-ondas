@@ -128,6 +128,10 @@
   font-family: inherit;
   background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+   word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
 }
 
 /* Modo claro - Inputs */
@@ -166,6 +170,14 @@
   .proyecto-input-lista::placeholder {
     color: rgba(17, 24, 39, 0.6);
   }
+}
+
+.proyecto-input-lista option {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0.8rem;
 }
 
 /* Subtítulos */

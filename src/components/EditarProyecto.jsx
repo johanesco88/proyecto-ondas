@@ -27,6 +27,10 @@ const EditarProyecto = () => {
   const [resetSubida, setResetSubida] = useState(false);
 
   const { user: usuarioActual, rol, loading } = useAuth();
+const truncateText = (text, maxLength = 80) => {
+  if (text.length <= maxLength) return text;
+  return text.substring(0, maxLength) + '...';
+};
 
   useEffect(() => {
     if (usuarioActual) {
@@ -329,7 +333,9 @@ const EditarProyecto = () => {
         <select className="proyecto-input-lista" value={nuevoAvance.objetivoId} onChange={(e) => setNuevoAvance({ ...nuevoAvance, objetivoId: e.target.value })}>
           <option value="">-- Objetivo --</option>
           {(proyecto.objetivos || []).map((o) => (
-            <option key={o.id} value={o.id}>{o.descripcion}</option>
+            <option key={o.id} value={o.id} title={o.descripcion}>
+  {truncateText(o.descripcion)}
+</option>
           ))}
         </select>
         <input

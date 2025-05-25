@@ -9,14 +9,14 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import autoTable from 'jspdf-autotable'; // Asegúrate de instalar jspdf-autotable
+import autoTable from 'jspdf-autotable'; 
 
 
 const VerProyecto = () => {
   const { id } = useParams();
   const [proyecto, setProyecto] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
-  const componenteRef = useRef(); // Para seleccionar el div a exportar como PDF
+  const componenteRef = useRef(); 
 
 
 
@@ -36,102 +36,140 @@ const VerProyecto = () => {
 
 
   const generarPDF = () => {
-    if (!proyecto) return;
+  if (!proyecto) return;
 
-    const pdf = new jsPDF();
-    const margenX = 10;
-    let posY = 10;
+  const pdf = new jsPDF();
+  const margenX = 10;
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const maxWidth = pageWidth - (margenX * 2); 
+  let posY = 10;
 
-    // Título
-    pdf.setFontSize(16);
-    pdf.text(`Informe del Proyecto: ${proyecto.titulo}`, margenX, posY);
-    posY += 10;
-
-    // Datos generales
-    pdf.setFontSize(12);
-    pdf.text(`Área: ${proyecto.area}`, margenX, posY);
-    posY += 7;
-    pdf.text(`Institución: ${proyecto.institucion}`, margenX, posY);
-    posY += 7;
-    pdf.text(`Presupuesto: $${proyecto.presupuesto}`, margenX, posY);
-    posY += 7;
-    pdf.text(`Cronograma: ${proyecto.cronograma}`, margenX, posY);
-    posY += 7;
-
-    const docente = usuarios.find(u => u.id === proyecto.docenteId);
-    pdf.text(`Docente: ${docente ? docente.nombres + ' ' + docente.apellidos : 'No asignado'}`, margenX, posY);
-    posY += 10;
-
-    // Integrantes
-    const integrantes = proyecto.integrantes?.map(i => {
-      const u = usuarios.find(u => u.id === i.idUsuario);
-      return [u?.nombres + ' ' + u?.apellidos || 'Desconocido'];
+  // Función helper para texto con salto automático
+  const addTextWithWrap = (text, fontSize = 12) => {
+    pdf.setFontSize(fontSize);
+    const lines = pdf.splitTextToSize(text, maxWidth);
+    lines.forEach(line => {
+      pdf.text(line, margenX, posY);
+      posY += fontSize * 0.35; 
     });
-
-    if (integrantes?.length) {
-      autoTable(pdf, {
-        startY: posY,
-        head: [['Integrantes']],
-        body: integrantes,
-      });
-      posY = pdf.lastAutoTable.finalY + 10;
-    }
-
-    // Objetivos
-    const objetivos = proyecto.objetivos?.map(o => [o.descripcion]);
-
-    if (objetivos?.length) {
-      autoTable(pdf, {
-        startY: posY,
-        head: [['Objetivos']],
-        body: objetivos,
-      });
-      posY = pdf.lastAutoTable.finalY + 10;
-    }
-
-    // Avances
-    const avances = proyecto.avances?.map(a => {
-      const estudiante = usuarios.find(u => u.id === a.estudianteId);
-      const objetivo = proyecto.objetivos.find(o => o.id === a.objetivoId);
-      return [
-        estudiante?.nombres + ' ' + estudiante?.apellidos || 'Desconocido',
-        objetivo?.descripcion || 'No encontrado',
-        a.descripcion,
-        new Date(a.fecha).toLocaleString(),
-      ];
-    });
-
-    if (avances?.length) {
-      autoTable(pdf, {
-        startY: posY,
-        head: [['Estudiante', 'Objetivo', 'Descripción', 'Fecha']],
-        body: avances,
-        styles: { fontSize: 8 },
-      });
-      posY = pdf.lastAutoTable.finalY + 10;
-    }
-
-    // Estados
-    const estados = proyecto.historialEstados?.map(e => [
-      e.estado,
-      new Date(e.fecha).toLocaleDateString(),
-      e.observaciones,
-    ]);
-
-    if (estados?.length) {
-      autoTable(pdf, {
-        startY: posY,
-        head: [['Estado', 'Fecha', 'Observaciones']],
-        body: estados,
-        styles: { fontSize: 9 },
-      });
-    }
-
-    const fileName = `informe_proyecto_${proyecto.titulo}.pdf`;
-    pdf.save(fileName);
+    posY += 3; 
   };
 
+  // Título
+  addTextWithWrap(`Informe del Proyecto: ${proyecto.titulo}`, 16);
+  posY += 5;
 
+  // Datos generales
+  addTextWithWrap(`Área: ${proyecto.area}`, 12);
+  addTextWithWrap(`Institución: ${proyecto.institucion}`, 12);
+  addTextWithWrap(`Presupuesto: $${proyecto.presupuesto}`, 12);
+  addTextWithWrap(`Cronograma: ${proyecto.cronograma}`, 12);
+
+  const docente = usuarios.find(u => u.id === proyecto.docenteId);
+  addTextWithWrap(`Docente: ${docente ? docente.nombres + ' ' + docente.apellidos : 'No asignado'}`, 12);
+  
+  posY += 5;
+
+  // Integrantes
+  const integrantes = proyecto.integrantes?.map(i => {
+    const u = usuarios.find(u => u.id === i.idUsuario);
+    return [u?.nombres + ' ' + u?.apellidos || 'Desconocido'];
+  });
+
+  if (integrantes?.length) {
+    autoTable(pdf, {
+      startY: posY,
+      head: [['Integrantes']],
+      body: integrantes,
+      styles: { 
+        fontSize: 10,
+        cellPadding: 3
+      },
+      columnStyles: {
+        0: { cellWidth: maxWidth } 
+      }
+    });
+    posY = pdf.lastAutoTable.finalY + 10;
+  }
+
+  // Objetivos
+  const objetivos = proyecto.objetivos?.map(o => [o.descripcion]);
+
+  if (objetivos?.length) {
+    autoTable(pdf, {
+      startY: posY,
+      head: [['Objetivos']],
+      body: objetivos,
+      styles: { 
+        fontSize: 10,
+        cellPadding: 3
+      },
+      columnStyles: {
+        0: { cellWidth: maxWidth } 
+      }
+    });
+    posY = pdf.lastAutoTable.finalY + 10;
+  }
+
+  // Avances
+  const avances = proyecto.avances?.map(a => {
+    const estudiante = usuarios.find(u => u.id === a.estudianteId);
+    const objetivo = proyecto.objetivos.find(o => o.id === a.objetivoId);
+    return [
+      estudiante?.nombres + ' ' + estudiante?.apellidos || 'Desconocido',
+      objetivo?.descripcion || 'No encontrado',
+      a.descripcion,
+      new Date(a.fecha).toLocaleString(),
+    ];
+  });
+
+  if (avances?.length) {
+    autoTable(pdf, {
+      startY: posY,
+      head: [['Estudiante', 'Objetivo', 'Descripción', 'Fecha']],
+      body: avances,
+      styles: { 
+        fontSize: 8,
+        cellPadding: 2
+      },
+      columnStyles: {
+        0: { cellWidth: 35 },  
+        1: { cellWidth: 50 },  
+        2: { cellWidth: 70 },  
+        3: { cellWidth: 35 }   
+      }
+    });
+    posY = pdf.lastAutoTable.finalY + 10;
+  }
+
+  // Estados
+  const estados = proyecto.historialEstados?.map(e => [
+    e.estado,
+    new Date(e.fecha).toLocaleDateString(),
+    e.observaciones,
+  ]);
+
+  if (estados?.length) {
+    autoTable(pdf, {
+      startY: posY,
+      head: [['Estado', 'Fecha', 'Observaciones']],
+      body: estados,
+      styles: { 
+        fontSize: 9,
+        cellPadding: 3
+      },
+      columnStyles: {
+        0: { cellWidth: 30 },   
+        1: { cellWidth: 30 },   
+        2: { cellWidth: 130 }  
+      }
+    });
+  }
+
+  // Limpiar caracteres especiales del nombre del archivo
+  const fileName = `informe_proyecto_${proyecto.titulo.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
+  pdf.save(fileName);
+};
 
   if (!proyecto) {
     return (
@@ -159,7 +197,6 @@ const VerProyecto = () => {
 
   return (
     <div className="contenedor-proyecto-ver" ref={componenteRef}>
-      <button className="boton-pdf" onClick={generarPDF}>📄 Exportar a PDF</button>
       <div className="proyecto-informe">
         <h2 className="proyecto-titulo">{proyecto.titulo}</h2>
 
@@ -226,6 +263,9 @@ const VerProyecto = () => {
             </ul>
           </div>
         </div>
+      <button className="boton-pdf-final" onClick={generarPDF}>
+      📄 Generar Informe PDF
+    </button>
       </div>
     </div>
 

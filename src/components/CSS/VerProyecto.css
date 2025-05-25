@@ -172,6 +172,119 @@ body {
   font-size: 0.9rem;
 }
 
+.boton-pdf {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(45deg, var(--color-4), var(--color-8), var(--color-10));
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 170, 130, 0.3);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: pulse 2s infinite;
+}
+
+.boton-pdf:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(0, 170, 130, 0.4);
+  background: linear-gradient(45deg, var(--color-8), var(--color-10), var(--color-4));
+}
+
+.boton-pdf:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* Alternativa: Botón en la parte superior derecha */
+.boton-pdf-superior {
+  position: absolute;
+  top: -60px;
+  right: 0;
+  background: linear-gradient(45deg, var(--color-4), var(--color-8));
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 170, 130, 0.2);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.boton-pdf-superior:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 170, 130, 0.3);
+}
+
+/* Alternativa: Botón al final del contenido */
+.boton-pdf-final {
+  display: block;
+  margin: 30px auto 0;
+  background: linear-gradient(45deg, var(--color-4), var(--color-8));
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 15px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 170, 130, 0.2);
+  transition: all 0.3s ease;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.boton-pdf-final:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(0, 170, 130, 0.3);
+  background: linear-gradient(45deg, var(--color-8), var(--color-10));
+}
+
+/* Animación de pulso para el botón flotante */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 10px 25px rgba(0, 170, 130, 0.3);
+  }
+  50% {
+    box-shadow: 0 10px 25px rgba(0, 170, 130, 0.5), 0 0 20px rgba(0, 170, 130, 0.3);
+  }
+  100% {
+    box-shadow: 0 10px 25px rgba(0, 170, 130, 0.3);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .boton-pdf {
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .boton-pdf-superior {
+    position: static;
+    margin-bottom: 20px;
+    width: fit-content;
+    margin-left: auto;
+  }
+}
+
 /* Animaciones */
 @keyframes slideIn {
   from {
