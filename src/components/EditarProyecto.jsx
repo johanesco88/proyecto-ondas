@@ -5,6 +5,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import "./CSS/Editar_CrearProyecto.css";
 import SubirArchivo from "./subirArchivo";
+import { auth } from '../services/firebase';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+
 
 
 
@@ -19,6 +23,26 @@ const EditarProyecto = () => {
   const [nuevoAvance, setNuevoAvance] = useState({ objetivoId: "", descripcion: "", estudianteId: "" });
   const [usuarios, setUsuarios] = useState([]);
   const [resetSubida, setResetSubida] = useState(false);
+
+  const [usuarioActual, setUsuarioActual] = useState(null);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUsuarioActual(user);
+        setNuevoAvance((prev) => ({
+          ...prev,
+          estudianteId: user.uid,
+        }));
+      } else {
+        setUsuarioActual(null);
+      }
+    });
+
+    return () => unsubscribe(); // Limpia el listener
+  }, []);
+
 
 
 
@@ -191,8 +215,8 @@ const EditarProyecto = () => {
         <input className="proyecto-input-lista" type="number" name="presupuesto" placeholder="Presupuesto" value={proyecto.presupuesto} onChange={handleChange} />
         <input className="proyecto-input-lista" type="text" name="institucion" placeholder="Institución" value={proyecto.institucion} onChange={handleChange} />
         <textarea className="proyecto-input-lista" name="observaciones" placeholder="Descripción" value={proyecto.observaciones} onChange={handleChange} />
-       
-       <h3 className="Subtitulos">Docente Encargado</h3>
+
+        <h3 className="Subtitulos">Docente Encargado</h3>
         <select
           className="proyecto-input-lista"
           value={proyecto.docenteId}
@@ -315,12 +339,19 @@ const EditarProyecto = () => {
           value={nuevoAvance.descripcion}
           onChange={(e) => setNuevoAvance({ ...nuevoAvance, descripcion: e.target.value })}
         />
-        <select className="proyecto-input-lista" value={nuevoAvance.estudianteId} onChange={(e) => setNuevoAvance({ ...nuevoAvance, estudianteId: e.target.value })}>
-          <option value="">-- Estudiante --</option>
-          {(proyecto.integrantes || []).map((i) => (
-            <option key={i.idUsuario} value={i.idUsuario}>{i.nombre}</option>
-          ))}
+        {/* Este select se puede eliminar o deshabilitar si el estudiante ya está logueado */}
+        <select
+          className="proyecto-input-lista"
+          value={nuevoAvance.estudianteId}
+          disabled
+        >
+          <option value={usuarioActual?.uid}>
+            {usuarioActual
+              ? `${usuarioActual.displayName || "Estudiante actual"}`
+              : "Cargando usuario..."}
+          </option>
         </select>
+
 
 
         <SubirArchivo onUpload={(url) => setArchivoUrl(url)} reset={resetSubida} />
