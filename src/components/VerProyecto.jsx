@@ -172,7 +172,7 @@ const VerProyecto = () => {
             <strong>Docente:</strong> {obtenerNombreDocente(proyecto.docenteId)}
           </p>
 
-          <p className="detalle-item">
+          <div className="detalle-item">
             <strong>Integrantes:</strong>
             <ul className="lista-integrantes">
               {proyecto.integrantes?.map((integrante, idx) => {
@@ -185,18 +185,18 @@ const VerProyecto = () => {
               })}
             </ul>
 
-          </p>
+          </div>
 
-          <p className="detalle-item">
+          <div className="detalle-item">
             <strong>Objetivos:</strong>
             <ul className="lista-objetivos">
               {proyecto.objetivos?.map((o, idx) => (
                 <li className="item-objetivo" key={idx}>{o.descripcion}</li>
               ))}
             </ul>
-          </p>
+          </div>
 
-          <p className="detalle-item">
+          <div className="detalle-item">
             <strong>Avances del Proyecto:</strong>
             <ul className="lista-estados">
               {proyecto.avances?.map((a, idx) => (
@@ -211,9 +211,9 @@ const VerProyecto = () => {
                 </li>
               ))}
             </ul>
-          </p>
+          </div>
 
-          <p className="detalle-item">
+          <div className="detalle-item">
             <strong>Estado(s):</strong>
             <ul className="lista-estados">
               {proyecto.historialEstados?.map((estado, idx) => (
@@ -224,7 +224,7 @@ const VerProyecto = () => {
                 </li>
               ))}
             </ul>
-          </p>
+          </div>
         </div>
       </div>
     </div>
