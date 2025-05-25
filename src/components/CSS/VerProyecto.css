@@ -1,24 +1,36 @@
 :root {
-  --color-4: #00ff00;
-  --color-8: #00ffaa;
-  --color-10: #00ffff;
+  --color-4: #00aa00;
+  --color-8: #00aaaa;
+  --color-10: #00cccc;
 
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #1a1a1a;
-  --text-primary: #ffffff;
-  --text-secondary: #cccccc;
-  --shadow-glow: rgba(0, 255, 170, 0.3);
+  --bg-primary: #ffffff;
+  --bg-secondary: #f0f0f0;
+  --text-primary: #111111;
+  --text-secondary: #333333;
+  --shadow-glow: rgba(0, 170, 130, 0.2);
+
+  --panel-bg: rgba(255, 255, 255, 0.9);
+  --panel-border: rgba(0, 170, 130, 0.2);
+  --item-bg: rgba(0, 170, 130, 0.08);
+  --item-hover-bg: rgba(0, 170, 130, 0.15);
+  --list-bg: rgba(0, 200, 200, 0.05);
+  --list-hover-bg: rgba(0, 200, 200, 0.12);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .proyecto-informe {
   max-width: 900px;
   margin: 0 auto;
-  background: rgba(26, 26, 26, 0.8);
+  background: var(--panel-bg);
   border-radius: 20px;
   padding: 40px;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 255, 170, 0.2);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px var(--shadow-glow);
+  border: 1px solid var(--panel-border);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 30px var(--shadow-glow);
   position: relative;
   overflow: hidden;
   margin-top: 40px;
@@ -27,7 +39,7 @@
 }
 
 .proyecto-informe:hover {
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 40px var(--shadow-glow);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 0 40px var(--shadow-glow);
 }
 
 .proyecto-informe::before {
@@ -60,7 +72,7 @@
 }
 
 .detalle-item {
-  background: rgba(0, 255, 170, 0.05);
+  background: var(--item-bg);
   padding: 20px;
   border-radius: 12px;
   border-left: 4px solid var(--color-8);
@@ -74,7 +86,8 @@
 
 .detalle-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 255, 170, 0.2);
+  background: var(--item-hover-bg);
+  box-shadow: 0 10px 25px var(--item-hover-bg);
   border-left-color: var(--color-10);
 }
 
@@ -112,7 +125,7 @@
 .item-integrante,
 .item-objetivo,
 .item-estado {
-  background: rgba(0, 255, 255, 0.05);
+  background: var(--list-bg);
   margin: 8px 0;
   padding: 12px 20px;
   border-radius: 8px;
@@ -126,7 +139,7 @@
 .item-objetivo::before,
 .item-estado::before {
   content: '▶';
-  color: var(--color-4);
+  color: var(--color-10);
   margin-right: 10px;
   font-size: 0.8rem;
   transition: transform 0.3s ease;
@@ -135,9 +148,9 @@
 .item-integrante:hover,
 .item-objetivo:hover,
 .item-estado:hover {
-  background: rgba(0, 255, 255, 0.1);
+  background: var(--list-hover-bg);
   transform: translateX(5px);
-  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.1);
+  box-shadow: 0 5px 15px var(--list-hover-bg);
 }
 
 .item-integrante:hover::before,
@@ -202,5 +215,22 @@
 
   .detalle-item {
     padding: 15px;
+  }
+}
+
+/* DARK MODE OVERRIDE */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --shadow-glow: rgba(0, 255, 170, 0.3);
+    --panel-bg: rgba(26, 26, 26, 0.8);
+    --panel-border: rgba(0, 255, 170, 0.2);
+    --item-bg: rgba(0, 255, 170, 0.05);
+    --item-hover-bg: rgba(0, 255, 170, 0.1);
+    --list-bg: rgba(0, 255, 255, 0.05);
+    --list-hover-bg: rgba(0, 255, 255, 0.1);
   }
 }

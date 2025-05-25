@@ -54,12 +54,20 @@
   font-weight: 700;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin-bottom: 2rem;
-  background-color: white;
+  color: white;
   background-clip: text;
   position: relative;
 }
 
+/* Modo claro - Título */
+@media (prefers-color-scheme: light) {
+  .proyectos-titulo {
+    color: #111827;
+  }
+}
+
 .proyectos-titulo::after {
+  content: '';
   position: absolute;
   bottom: -10px;
   left: 50%;
@@ -79,10 +87,20 @@
   padding: 2.5rem;
   backdrop-filter: blur(20px);
   border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
   transform: translateY(0);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   overflow: hidden;
+}
+
+/* Modo claro - Formulario */
+@media (prefers-color-scheme: light) {
+  .proyecto-formulario {
+    border: 2px solid rgba(17, 24, 39, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 40px rgba(17, 24, 39, 0.1);
+  }
 }
 
 .proyecto-formulario::before {
@@ -96,8 +114,6 @@
   animation: shimmer 2s ease-in-out infinite;
 }
 
-
-
 /* Inputs y listas del proyecto */
 .proyecto-input-lista {
   width: 100%;
@@ -107,23 +123,49 @@
   border-radius: 15px;
   font-size: 1.1rem;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  color: rgb(107, 107, 107);
+  color: rgb(200, 200, 200);
   position: relative;
   font-family: inherit;
-  background: rgba(255, 255, 255, 0);
+  background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+}
+
+/* Modo claro - Inputs */
+@media (prefers-color-scheme: light) {
+  .proyecto-input-lista {
+    color: #111827;
+    background: rgba(17, 24, 39, 0.05);
+    box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.1);
+  }
 }
 
 .proyecto-input-lista:focus {
   outline: none;
   border: 1px solid var(--color-10);
-  background: rgb(255, 255, 255);
+  background: rgba(59, 59, 59, 0.9);
+  color: white;
   transform: scale(1.03);
+}
+
+/* Modo claro - Inputs focus */
+@media (prefers-color-scheme: light) {
+  .proyecto-input-lista:focus {
+    background: white;
+    color: #111827;
+  }
 }
 
 .proyecto-input-lista::placeholder {
   font-weight: 500;
   font-style: italic;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Modo claro - Placeholder */
+@media (prefers-color-scheme: light) {
+  .proyecto-input-lista::placeholder {
+    color: rgba(17, 24, 39, 0.6);
+  }
 }
 
 /* Subtítulos */
@@ -137,6 +179,13 @@
   position: relative;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+/* Modo claro - Subtítulos */
+@media (prefers-color-scheme: light) {
+  .Subtitulos {
+    color: #111827;
+  }
 }
 
 /* Botones Agregar */
@@ -157,6 +206,13 @@
   margin-bottom: 1.5rem;
   font-family: inherit;
   display: inline-block;
+}
+
+/* Modo claro - Botón Agregar */
+@media (prefers-color-scheme: light) {
+  .BotonAgregar {
+    color: #111827;
+  }
 }
 
 .BotonAgregar::before {
@@ -203,6 +259,14 @@
   backdrop-filter: blur(10px);
 }
 
+/* Modo claro - Lista items */
+@media (prefers-color-scheme: light) {
+  .proyecto-input-lista li {
+    background: rgba(17, 24, 39, 0.05);
+    color: #111827;
+  }
+}
+
 .BotonEliminar{
   background: transparent;
   color: var(--color-8);
@@ -233,6 +297,13 @@
   font-family: inherit;
 }
 
+/* Modo claro - Botones principales */
+@media (prefers-color-scheme: light) {
+  .BotonesEditarCrear {
+    color: #111827;
+  }
+}
+
 .BotonesEditarCrear::before {
   content: '';
   position: absolute;
@@ -251,23 +322,13 @@
 .BotonesEditarCrear:hover {
   transform: translateY(-3px) scale(1.02);
   box-shadow: 0 15px 30px rgba(0, 255, 136, 0.377);
+  background: linear-gradient(135deg, var(--color-10), var(--color-8));
+  color: black;
 }
 
 .BotonesEditarCrear:active {
   transform: translateY(-1px) scale(1.01);
 }
-
-/* Botón específico para guardar cambios */
-.BotonesEditarCrear {
-  background: transparent;
-}
-
-.BotonesEditarCrear:hover {
-  background: linear-gradient(135deg, var(--color-10), var(--color-8));
-  box-shadow: 0 15px 30px rgba(0, 255, 170, 0.4);
-  color: black;
-}
-
 
 #BotonCrearProyecto{
   background: transparent;
@@ -285,8 +346,8 @@
   .proyecto-formulario {
     padding: 1.5rem;
     border-radius: 20px;
-  margin-left: 10%;
-  margin-right: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
   }
   
   .proyectos-titulo {
@@ -298,6 +359,7 @@
     padding: 1rem;
     font-size: 1rem;
   }
+  
   .Subtitulos {
     font-size: 1.2rem;
     margin: 1.5rem 0 0.8rem 0;

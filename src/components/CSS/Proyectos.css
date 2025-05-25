@@ -27,7 +27,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
   position: relative;
 }
@@ -37,7 +37,8 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
   font-size: 3rem;
   font-weight: 800;
-  color: white;
+  color: #111827; /* Color oscuro por defecto para modo claro */
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   margin-bottom: 3rem;
   position: relative;
   text-transform: uppercase;
@@ -88,6 +89,7 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
   overflow: hidden;
   transform: translateY(0);
+  color: #111827; /* Color oscuro por defecto para modo claro */
 }
 
 .proyecto-item::before {
@@ -109,7 +111,7 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 .proyecto-item-titulo {
   font-size: 1.4rem;
   font-weight: 700;
-  color: #2d3748;
+  color: #111827; /* Color oscuro por defecto para modo claro */
   margin-bottom: 1.5rem;
   text-align: center;
   position: relative;
@@ -121,12 +123,13 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   border-bottom: 2px solid #e2e8f0;
   margin-bottom: 1.5rem;
   text-transform: capitalize;
+  color: #111827; /* Color oscuro por defecto para modo claro */
 }
 
 /* Información del proyecto */
 .proyecto-item p.proyecto-item-titulo {
   font-size: 0.95rem;
-  color: #4a5568;
+  color: #4a5568; /* Color gris oscuro por defecto para modo claro */
   margin-bottom: 0.8rem;
   line-height: 1.6;
   padding: 0.5rem 0;
@@ -142,7 +145,6 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: rgba(102, 126, 234, 0.05);
   border-radius: 0 8px 8px 0;
 }
-
 
 /* Contenedor de botones del proyecto */
 .proyecto-item {
@@ -182,7 +184,7 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 .proyecto-actualizar {
   background: transparent;
   border: 1px solid var(--color-10);
-  color: white;
+  color: #111827; /* Color oscuro por defecto para modo claro */
   margin-top: 1.5rem !important;
 }
 
@@ -195,9 +197,9 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 /* Botón Eliminar */
 .proyecto-eliminar {
-   background: transparent;
+  background: transparent;
   border: 1px solid var(--color-4);
-  color: white;
+  color: #111827; /* Color oscuro por defecto para modo claro */
 }
 
 .proyecto-eliminar:hover {
@@ -209,9 +211,9 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 /* Botón Ver proyecto */
 .proyecto-Mostrar {
-   background: transparent;
+  background: transparent;
   border: 1px solid var(--color-8);
-  color: white;
+  color: #111827; /* Color oscuro por defecto para modo claro */
 }
 
 .proyecto-Mostrar:hover {
@@ -254,7 +256,6 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 .proyecto-boton:not(:hover) {
   box-shadow: 0 0px 0px rgba(0, 185, 99, 0.5);
 }
-
 
 /* Animaciones */
 @keyframes fadeInUp {
@@ -313,14 +314,14 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   white-space: pre;
   display: block;
   text-align: center;
-  color: white;
+  color: #111827; /* Color oscuro por defecto para modo claro */
   font-size: 1.4rem;
   font-weight: 600;
   padding: 3rem;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   backdrop-filter: blur(10px);
-  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border: 2px dashed rgba(17, 24, 39, 0.3); /* Borde oscuro para modo claro */
   grid-column: 1 / -1;
 }
 
@@ -383,11 +384,19 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 }
 
-/* Modo oscuro (opcional) */
+/* Estilos específicos para modo oscuro */
 @media (prefers-color-scheme: dark) {
+  .proyectos-titulo {
+    color: white;
+  }
+  
   .proyecto-item {
     background: rgba(45, 55, 72, 0.9);
     color: white;
+  }
+
+  .proyecto-item-titulo {
+    color: #ffffff;
   }
 
   .proyecto-item h3.proyecto-item-titulo {
@@ -396,5 +405,22 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
   .proyecto-item p.proyecto-item-titulo {
     color: #e2e8f0;
+  }
+  
+  .proyecto-actualizar {
+    color: white;
+  }
+  
+  .proyecto-eliminar {
+    color: white;
+  }
+  
+  .proyecto-Mostrar {
+    color: white;
+  }
+  
+  .proyecto-lista:empty::after {
+    color: white;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
   }
 }

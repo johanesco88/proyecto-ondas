@@ -1,10 +1,48 @@
-.MenuAvatar{
-    display: flex;
-    align-items: center;
+:root {
+  --nav-bg: #00131b;
+  --nav-text: #ffffff;
+  --nav-hover: rgba(255, 255, 255, 0.1);
+  --nav-avatar-bg: #004d4d;
+  --nav-avatar-border: #00cccc;
 }
-.Saludo{
-    padding-right: 15px;
+
+.MenuAvatar {
+  display: flex;
+  align-items: center;
 }
-.Navegacion{
-    background-color: rgb(0, 19, 27);
+
+.Saludo {
+  padding-right: 15px;
+  color: var(--nav-text);
+}
+
+.Navegacion {
+  background-color: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+.MuiButton-root {
+  transition: background-color 0.3s ease;
+}
+
+.MuiButton-root:hover {
+  background-color: var(--nav-hover);
+}
+
+.MuiAvatar-root {
+  background-color: var(--nav-avatar-bg);
+  border: 2px solid var(--nav-avatar-border);
+}
+
+/* MODO OSCURO */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --nav-bg: #0b1c21;
+    --nav-text: #e0f7fa;
+    --nav-hover: rgba(0, 255, 255, 0.15);
+    --nav-avatar-bg: #005b5b;
+    --nav-avatar-border: #00e6e6;
+  }
 }

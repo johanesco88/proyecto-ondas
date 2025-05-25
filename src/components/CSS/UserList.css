@@ -11,6 +11,7 @@
       --color-9: #ff00c8; 
       --color-10: #00ffff; 
     }
+
 /* Contenedor principal */
 .user-management-container {
   max-width: 1400px;
@@ -29,7 +30,7 @@
   text-align: center;
   font-size: 3rem;
   font-weight: 800;
-  color: white;
+  color: #111827; /* Color oscuro por defecto para modo claro */
   margin: 2rem;
   text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   position: relative;
@@ -57,7 +58,7 @@
   max-width: 1200px;
   display: grid;
   gap: 2rem;
-  color: white;
+  color: #111827; /* Color oscuro por defecto para modo claro */
   grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
 }
 
@@ -72,6 +73,7 @@
   position: relative;
   overflow: hidden;
   transform: translateY(0);
+  color: #111827; /* Color oscuro para el texto en modo claro */
 }
 
 .user-item::before {
@@ -115,6 +117,7 @@
   position: relative;
   padding-bottom: 0.8rem;
   border-bottom: 2px solid #e2e8f0;
+  color: #111827; /* Color oscuro para modo claro */
 }
 
 .user-info strong::before {
@@ -130,6 +133,7 @@
   transition: all 0.3s ease;
   border-radius: 0 8px 8px 0;
   font-weight: 500;
+  color: #111827; /* Color oscuro para modo claro */
 }
 
 .user-buttons {
@@ -175,7 +179,7 @@
 .edit-btn {
   background: transparent;
   border: 1px solid var(--color-10);
-  color: white;
+  color: #111827; /* Color oscuro para modo claro */
 }
 
 .edit-btn::after {
@@ -190,7 +194,7 @@
 .delete-btn {
   background: transparent;
   border: 1px solid var(--color-4);
-  color: white;
+  color: #111827; /* Color oscuro para modo claro */
 }
 
 .delete-btn::after {
@@ -267,14 +271,14 @@
   white-space: pre;
   display: block;
   text-align: center;
-  color: white;
+  color: #111827; /* Color oscuro para modo claro */
   font-size: 1.4rem;
   font-weight: 600;
   padding: 3rem;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   backdrop-filter: blur(15px);
-  border: 3px dashed rgba(255, 255, 255, 0.3);
+  border: 3px dashed rgba(17, 24, 39, 0.3); /* Borde oscuro para modo claro */
   grid-column: 1 / -1;
   animation: pulse 2s ease-in-out infinite;
 }
@@ -285,6 +289,56 @@
   }
   50% {
     opacity: 1;
+  }
+}
+
+/* Estilos específicos para modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .title-center {
+    color: white;
+  }
+  
+  .user-list {
+    color: white;
+  }
+  
+  .user-item,
+  .user-form {
+    background: rgba(45, 55, 72, 0.95);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .user-info strong {
+    color: #ffffff;
+  }
+  
+  .user-info > *:not(strong) {
+    color: #e2e8f0;
+  }
+  
+  .edit-btn {
+    color: white;
+  }
+  
+  .delete-btn {
+    color: white;
+  }
+  
+  .user-list:empty::after {
+    color: white;
+    border: 3px dashed rgba(255, 255, 255, 0.3);
+  }
+  
+  .user-form input,
+  .user-form select {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .user-form input::placeholder {
+    color: #a0aec0;
   }
 }
 
@@ -348,33 +402,5 @@
   .user-form select {
     padding: 1rem;
     font-size: 1rem;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .user-item,
-  .user-form {
-    background: rgba(45, 55, 72, 0.95);
-    color: white;
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  .user-info strong {
-    color: #ffffff;
-  }
-  
-  .user-info > *:not(strong) {
-    color: #e2e8f0;
-  }
-  
-  .user-form input,
-  .user-form select {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border-color: rgba(255, 255, 255, 0.2);
-  }
-  
-  .user-form input::placeholder {
-    color: #a0aec0;
   }
 }

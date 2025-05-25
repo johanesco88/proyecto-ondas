@@ -8,7 +8,7 @@
       --text-color: #1f2937;
       --text-secondary: #6b7280;
       --border-color: #e5e7eb;
-      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --shadow: 0 0 30px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
       --transition: all 0.3s ease;
       
       /* Colores RGB para animaciones */
